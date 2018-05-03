@@ -11,7 +11,8 @@
   "scripts": {
     "build": "parcel build src/index.js --out-dir build --out-file gumdrop",
     "build:dev": "parcel src/index.js --out-dir build --out-file gumdrop",
-    "watch": "parcel watch src/index.js --out-dir build --out-file gumdrop"
+    "watch": "parcel watch src/index.js --out-dir build --out-file gumdrop",
+    "prepare": "npm run build && npm run build:dev"
   },
   "dependencies": {
     "markdown-it": "^8.4.1",
