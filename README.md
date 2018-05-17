@@ -1,6 +1,6 @@
 # Gumdrop
 
-![NPM version 1.1.0](https://img.shields.io/badge/npm-1.0.0-blue.svg)
+![NPM version 1.0.1](https://img.shields.io/badge/npm-1.0.1-blue.svg)
 
 > Script to display Markdown documents as static HTML pages
 
@@ -31,7 +31,7 @@ Static resources can be loaded (e.g. images) from any folder that is served by y
 
 ## Prerequisites
 
-In order to work, **Gumdrop** requires a static HTTP(S) file server as the Fetch API does not work with the `file:` protocol.
+In order to work, **Gumdrop** requires a static HTTP(S) file server as the Fetch API does not work with the `file:` protocol. **Gumdrop** requires a browser that supports the Fetch API thus Internet Explorer is not supported.
 
 ## Contributing
 
