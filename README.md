@@ -1,6 +1,6 @@
 # Gumdrop
 
-![NPM version 1.0.1](https://img.shields.io/badge/npm-1.0.1-blue.svg)
+![NPM version 1.1.0](https://img.shields.io/badge/npm-1.1.0-blue.svg)
 
 > Script to display Markdown documents as static HTML pages
 
@@ -11,6 +11,8 @@
 ## Features
 
 The script automatically parses Markdown documents and displays them in the browser. Navigation between local pages is handled by [fetch requests](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and they are cached to decrease network traffic.
+
+You can also set up your own JSON data files and iterate through them to display a collection of items, such as links, people or blog posts.
 
 ## Usage
 
@@ -27,7 +29,28 @@ Markdown files in the `pages` folder can be loaded. **Gumdrop** watches the hash
 [Link to about.md](#about)
 ```
 
-Static resources can be loaded (e.g. images) from any folder that is served by your file server, paths are relative to `index.html`.
+To use collections create JSON files in the `data` folder. Each of your data files should be an array of objects. You can iterate through your data in the HTML template in `index.html` with the `data-each` attribute by setting the name of the data file as the value. Inside the template you can reference the properties of each object in your array with double brackets.
+
+```json
+// data/pages.json
+
+[
+  { "title": "Main Page", "url": "#index" },
+  { "title": "About", "url": "#about" }
+]
+```
+
+```html
+// index.html
+
+<ul>
+  <li data-each="pages">
+    <a href="{{url}}">{{title}}</a>
+  </li>
+</ul>
+```
+
+Static resources (e.g. images) can be loaded from any folder that is served by your file server, paths are relative to `index.html`.
 
 ## Prerequisites
 
