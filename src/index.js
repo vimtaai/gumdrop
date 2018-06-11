@@ -1,4 +1,6 @@
-import load from './load';
+import { loadPage } from './load';
+import { transformLoops } from './loops';
 
-window.addEventListener('load', load);
-window.addEventListener('hashchange', load);
+window.addEventListener('load', transformLoops);
+window.addEventListener('load', loadPage);
+window.addEventListener('hashchange', loadPage);

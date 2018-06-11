@@ -2,7 +2,7 @@ import markdownIt from 'markdown-it';
 import markdownItDeflist from 'markdown-it-deflist';
 import markdownItContainer from 'markdown-it-container';
 
-const parser = markdownIt()
+const Markdown = markdownIt()
   .use(markdownItDeflist)
   .use(markdownItContainer, '', {
     validate(name) {
@@ -17,4 +17,7 @@ const parser = markdownIt()
     }
   });
 
-export default parser.render.bind(parser);
+export const parser = {
+  md: Markdown.render.bind(Markdown),
+  json: JSON.parse.bind(JSON)
+}
