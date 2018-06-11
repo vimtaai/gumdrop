@@ -4,13 +4,13 @@
   "description": "Script to display Markdown documents as static HTML pages",
   "author": "Márton Visnovitz <vimtaai@inf.elte.hu>",
   "license": "MIT",
-  "main": "build/gumdrop.js",
+  "main": "build/gumdrop.min.js",
   "repository": "github:vimtaai/gumdrop",
   "bugs": "https://github.com/vimtaai/gumdrop/issues",
   "homepage": "https://github.com/vimtaai/gumdrop#readme",
   "scripts": {
-    "build": "parcel build src/index.js --out-dir build --out-file gumdrop.min",
-    "build:dev": "parcel build src/index.js --out-dir build --out-file gumdrop --no-minify",
+    "build": "parcel build src/index.js --out-dir build --out-file gumdrop.min.js",
+    "build:dev": "parcel build src/index.js --out-dir build --out-file gumdrop.js --no-minify",
     "watch": "parcel watch src/index.js --out-dir build --out-file gumdrop",
     "prepare": "npm run build && npm run build:dev"
   },
