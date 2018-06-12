@@ -1,5 +1,7 @@
 import { fetchResource } from './fetch';
 
+const regex = /\{\{(.+?)\}\}/g;
+
 export async function transformLoops() {
   const loops = document.querySelectorAll('[data-each]');
   
@@ -13,7 +15,11 @@ export async function transformLoops() {
     
     for (const item of data) {
       const elem = template.cloneNode(true);
-      elem.innerHTML = elem.innerHTML.replace(/\{\{(.+?)\}\}/g, (_, property) => item[property]);
+      const attributes = Array.from(elem.attributes);
+      for (const attribute of attributes) {
+        attribute.value = attribute.value.replace(regex, (_, property) => item[property]);
+      }
+      elem.innerHTML = elem.innerHTML.replace(regex, (_, property) => item[property]);
       parent.insertBefore(elem, template);
     }
 
