@@ -18,9 +18,10 @@
 - Error pages
 - JSON collections and loops to display repeating data
 - Only needs a static file server, no server side code
+- No build step, it's just files you serve
 - Zero configuration
 
-## Markdown Extensions
+### Markdown Extensions
 
 **Gumdrop** uses [markdown-it](https://github.com/markdown-it/markdown-it) to parse Markdown documents. The parser is configured to support the following features as an addition to CommonMark:
 
@@ -66,6 +67,10 @@ To use collections create JSON files in the `data` folder. Each of your data fil
 ```
 
 Static resources (e.g. images) can be loaded from any folder that is served by your file server, paths are relative to `index.html`.
+
+### Using with GitHub Pages
+
+You can use **Gumdrop** with [GitHub Pages](https://pages.github.com) as it can serve as a static file server. To prevent GitHub Pages from trying to transform your site with Jekyll add an empty `.nojekyll` file to the root of your site.
 
 ## Prerequisites
 

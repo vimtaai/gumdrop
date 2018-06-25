@@ -9,8 +9,8 @@
   "bugs": "https://github.com/vimtaai/gumdrop/issues",
   "homepage": "https://github.com/vimtaai/gumdrop#readme",
   "scripts": {
-    "build": "parcel build src/index.js --out-dir build --out-file gumdrop.min.js",
-    "build:dev": "parcel build src/index.js --out-dir build --out-file gumdrop.js --no-minify",
+    "build": "parcel build src/index.js --out-dir build --out-file gumdrop.min.js --no-cache",
+    "build:dev": "parcel build src/index.js --out-dir build --out-file gumdrop.js --no-minify --no-cache",
     "watch": "parcel watch src/index.js --out-dir build --out-file gumdrop",
     "prepare": "npm run build && npm run build:dev"
   },

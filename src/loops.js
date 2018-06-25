@@ -3,26 +3,36 @@ import { fetchResource } from './fetch';
 const regex = /\{\{(.+?)\}\}/g;
 
 export async function transformLoops() {
-  const loops = document.querySelectorAll('[data-each]');
+  const loops = Array.from(document.querySelectorAll('[data-each]')).map((node) => ({
+    node,
+    dataFile: node.getAttribute('data-each'),
+    display: node.style.display || null
+  }));
+
+  for (const loop of loops) {
+    loop.node.style.display = 'none';
+    loop.node.removeAttribute('data-each');
+  }
   
-  for (const template of loops) {
-    const fileName = template.getAttribute('data-each');
-    const data = await fetchResource('data', fileName, 'json', []);
-
-    template.removeAttribute('data-each');
-
-    const parent = template.parentNode;
+  for (const loop of loops) {
+    const data = await fetchResource('data', loop.dataFile, 'json', []);
+    const parent = loop.node.parentNode;
     
     for (const item of data) {
-      const elem = template.cloneNode(true);
+      const replacer = (_, property) => item[property.trim()];
+      const elem = loop.node.cloneNode(true);
       const attributes = Array.from(elem.attributes);
+
       for (const attribute of attributes) {
-        attribute.value = attribute.value.replace(regex, (_, property) => item[property]);
+        attribute.value = attribute.value.replace(regex, replacer);
       }
-      elem.innerHTML = elem.innerHTML.replace(regex, (_, property) => item[property]);
-      parent.insertBefore(elem, template);
+
+      elem.innerHTML = elem.innerHTML.replace(regex, replacer);
+      elem.style.display = loop.display;
+
+      parent.insertBefore(elem, loop.node);
     }
 
-    parent.removeChild(template);
+    parent.removeChild(loop.node);
   }
 }
