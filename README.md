@@ -1,22 +1,37 @@
 # Gumdrop
 
-![NPM version 1.1.1](https://img.shields.io/badge/npm-1.1.1-blue.svg)
+![NPM version 1.2.0](https://img.shields.io/badge/npm-1.2.0-blue.svg)
 
 > Script to display Markdown documents as static HTML pages
 
 ## About
 
-**Gumdrop** is designed to be an easy to use, standalone script that can generate websites and documentations written in [Markdown](https://daringfireball.net/projects/markdown/syntax). It is bundled with all its dependencies (including [markdown-it](https://github.com/markdown-it/markdown-it) - a Markdown parser) and does not require any configuration or initialization.
+**Gumdrop** is designed to be an easy to use, standalone script that can generate websites and documentations written in [Markdown](https://daringfireball.net/projects/markdown/syntax). It is bundled with all its dependencies (including the Markdown parser) and does not require any configuration or initialization.
 
 ## Features
 
-The script automatically parses Markdown documents and displays them in the browser. Navigation between local pages is handled by [fetch requests](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and they are cached to decrease network traffic.
+- Displays Markdown documents as a static website
+- Automatic parsing of Markdown
+- Extra markdown features
+- Navigation by [fetch requests](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+- Local caching for faster load times
+- Error pages
+- JSON collections and loops to display repeating data
+- Only needs a static file server, no server side code
+- Zero configuration
 
-You can also set up your own JSON data files and iterate through them to display a collection of items, such as links, people or blog posts.
+## Markdown Extensions
+
+**Gumdrop** uses [markdown-it](https://github.com/markdown-it/markdown-it) to parse Markdown documents. The parser is configured to support the following features as an addition to CommonMark:
+
+- Tables
+- Definition lists
+- Containers (custom CSS classes on `div`s)
+- HTML code
 
 ## Usage
 
-To create a static website with Markdown all you need to to is to create a HTML template (`index.html`) on the root of your file server and add **Gumdrop** as an external script file.
+To create a static website with Markdown all you need to to is to create a HTML template (`index.html`) on your file server and add **Gumdrop** as an external script file.
 
 ```html
 <main></main>
@@ -29,7 +44,7 @@ Markdown files in the `pages` folder can be loaded. **Gumdrop** watches the hash
 [Link to about.md](#about)
 ```
 
-To use collections create JSON files in the `data` folder. Each of your data files should be an array of objects. You can iterate through your data in the HTML template in `index.html` with the `data-each` attribute by setting the name of the data file as the value. Inside the template you can reference the properties of each object in your array with double brackets.
+To use collections create JSON files in the `data` folder. Each of your data files should be an array of objects. You can iterate through your data in the HTML template in `index.html` or in any of your Markdown documents. Use the `data-each` attribute by setting the name of the data file as the value. Inside the template you can reference the properties of each object in your array with double curly braces.
 
 ```json
 // data/pages.json
