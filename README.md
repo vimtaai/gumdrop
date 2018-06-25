@@ -1,6 +1,6 @@
 # Gumdrop
 
-![NPM version 1.2.0](https://img.shields.io/badge/npm-1.2.0-blue.svg)
+![NPM version 1.2.1](https://img.shields.io/badge/npm-1.2.1-blue.svg)
 
 > Script to display Markdown documents as static HTML pages
 

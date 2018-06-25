@@ -1,6 +1,6 @@
 {
   "name": "gumdrop",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Script to display Markdown documents as static HTML pages",
   "author": "Márton Visnovitz <vimtaai@inf.elte.hu>",
   "license": "MIT",
