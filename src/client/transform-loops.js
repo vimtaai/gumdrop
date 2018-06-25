@@ -1,4 +1,4 @@
-import { fetchResource } from './fetch';
+import fetchResource from '../network/fetch-resource';
 
 const regex = /\{\{(.+?)\}\}/g;
 
@@ -36,3 +36,5 @@ export async function transformLoops() {
     parent.removeChild(loop.node);
   }
 }
+
+export default transformLoops;

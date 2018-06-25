@@ -1,6 +1,7 @@
-import { loadPage } from './load';
-import { transformLoops } from './loops';
+import loadDependencies from './network/load-dependencies';
+import load from './client/load';
 
-window.addEventListener('load', transformLoops);
-window.addEventListener('load', loadPage);
-window.addEventListener('hashchange', loadPage);
+loadDependencies();
+
+window.addEventListener('load', load);
+window.addEventListener('hashchange', load);
