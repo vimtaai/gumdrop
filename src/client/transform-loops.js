@@ -1,8 +1,8 @@
-import { fetchResource } from './fetch';
+import fetchResource from '../network/fetch-resource';
 
 const regex = /\{\{(.+?)\}\}/g;
 
-export async function transformLoops() {
+export async function transformLoops () {
   const loops = Array.from(document.querySelectorAll('[data-each]')).map((node) => ({
     node,
     dataFile: node.getAttribute('data-each'),
@@ -13,11 +13,11 @@ export async function transformLoops() {
     loop.node.style.display = 'none';
     loop.node.removeAttribute('data-each');
   }
-  
+
   for (const loop of loops) {
     const data = await fetchResource('data', loop.dataFile, 'json', []);
     const parent = loop.node.parentNode;
-    
+
     for (const item of data) {
       const replacer = (_, property) => item[property.trim()];
       const elem = loop.node.cloneNode(true);
@@ -36,3 +36,5 @@ export async function transformLoops() {
     parent.removeChild(loop.node);
   }
 }
+
+export default transformLoops;
