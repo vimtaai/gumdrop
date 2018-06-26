@@ -9,11 +9,10 @@ export async function fetchResource(folder, name, type, defaultValue) {
   const response = await fetch(`${folder}/${name}.${type}`, { cache: 'no-cache' });
 
   if (!response.ok) {
-    return defaultValue; // TODO: display error page
+    return defaultValue || await fetchResource('errors', response.status, 'md', ' ');
   }
 
-  cache.set(folder, name, await parsers[type](response));
-  return cache.get(folder, name);
+  return cache.set(folder, name, await parsers[type](response));
 }
 
 export default fetchResource;

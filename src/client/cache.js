@@ -27,6 +27,7 @@ export const cache = {
     }
 
     this.store[folder][name] = value;
+    return value;
   },
 }
 
