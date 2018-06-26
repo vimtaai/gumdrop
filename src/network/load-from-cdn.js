@@ -1,6 +1,6 @@
 const CDN = `https://cdn.jsdelivr.net`;
 
-export function loadFromCDN(packageName) {
+export function loadFromCDN (packageName) {
   const script = document.createElement('script');
 
   script.crossOrigin = true;

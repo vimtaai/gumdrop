@@ -1,5 +1,5 @@
-async function parse(response) {
-  return await response.json();
-} 
+async function parse (response) {
+  return response.json();
+}
 
 export default parse;

@@ -16,7 +16,7 @@
   "devDependencies": {
     "rollup": "^0.61.2"
   },
-  "browserslist": [
-    "last 2 Chrome major versions"
-  ]
+  "dependencies": {
+    "rollup-plugin-uglify": "^4.0.0"
+  }
 }

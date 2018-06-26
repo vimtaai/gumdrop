@@ -1,9 +1,11 @@
+/* global hljs, markdownitDeflist, markdownitContainer */
+
 let md;
 
 const markdownItConfig = {
   html: true,
   typographer: true,
-  highlight(string, language) {
+  highlight (string, language) {
     if (language && hljs.getLanguage(language)) {
       try {
         return hljs.highlight(language, string).value;
@@ -15,10 +17,10 @@ const markdownItConfig = {
 };
 
 const markdownItContainerConfig = {
-  validate(name) {
+  validate (name) {
     return name.trim().length;
   },
-  render(tokens, idx) {
+  render (tokens, idx) {
     if (tokens[idx].info.trim() !== '') {
       return `<div class="${tokens[idx].info.trim()}">`;
     } else {
@@ -27,7 +29,7 @@ const markdownItContainerConfig = {
   }
 };
 
-async function parse(response) {
+async function parse (response) {
   if (md === undefined) {
     md = window.markdownit(markdownItConfig)
       .use(markdownitDeflist)
@@ -35,6 +37,6 @@ async function parse(response) {
   }
 
   return md.render(await response.text());
-} 
+}
 
 export default parse;

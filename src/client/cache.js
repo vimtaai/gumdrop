@@ -1,11 +1,11 @@
 export const cache = {
   store: {},
 
-  containsFolder(folder) {
+  containsFolder (folder) {
     return this.store.hasOwnProperty(folder);
   },
 
-  contains(folder, name) {
+  contains (folder, name) {
     if (!this.containsFolder(folder)) {
       return false;
     }
@@ -13,7 +13,7 @@ export const cache = {
     return this.store[folder].hasOwnProperty(name);
   },
 
-  get(folder, name) {
+  get (folder, name) {
     if (!this.containsFolder(folder)) {
       return undefined;
     }
@@ -21,14 +21,14 @@ export const cache = {
     return this.store[folder][name];
   },
 
-  set(folder, name, value) {
+  set (folder, name, value) {
     if (!this.containsFolder(folder)) {
       this.store[folder] = {};
     }
 
     this.store[folder][name] = value;
     return value;
-  },
-}
+  }
+};
 
 export default cache;
