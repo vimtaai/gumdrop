@@ -9,14 +9,14 @@
   "bugs": "https://github.com/vimtaai/gumdrop/issues",
   "homepage": "https://github.com/vimtaai/gumdrop#readme",
   "scripts": {
-    "build": "rollup -i src/index.js -o build/gumdrop.js -f iife -m",
-    "watch": "rollup -i src/index.js -o build/gumdrop.js -f iife -m -w",
+    "build": "rollup -c --environment BUILD:production",
+    "build:dev": "rollup -c",
+    "watch": "rollup -c -w",
     "prepare": "npm run build && npm run build:dev"
   },
   "devDependencies": {
-    "rollup": "^0.61.2"
+    "rollup": "^0.61.2",
+    "rollup-plugin-terser": "^1.0.1"
   },
-  "dependencies": {
-    "rollup-plugin-uglify": "^4.0.0"
-  }
+  "dependencies": {}
 }
