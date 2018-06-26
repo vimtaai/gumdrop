@@ -1,6 +1,8 @@
 # Gumdrop
 
-![NPM version 2.0.0](https://img.shields.io/badge/npm-2.0.0-blue.svg)
+[![NPM version 2.0.0](https://img.shields.io/badge/npm-2.0.0-blue.svg)](https://npmjs.com/package/gumdrop)
+[![JavaScript Standard Style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![MIT license](https://img.shields.io/badge/license-MIT-green.svg)
 
 > Script to display Markdown documents as static HTML pages
 
@@ -8,11 +10,22 @@
 
 **Gumdrop** is designed to be an easy to use, standalone script that can generate websites and documentations written in [Markdown](https://daringfireball.net/projects/markdown/syntax). It is bundled with all its dependencies (including the Markdown parser) and does not require any configuration or initialization.
 
+## :sparkles: New in Version 2
+
+- Syntax highlighting support
+- Smaller bundle size
+- Improved load times
+- Less network traffic
+- Dependencies served from CDN
+- Improved caching
+- Cleaner code
+
 ## Features
 
 - Displays Markdown documents as a static website
 - Automatic parsing of Markdown
 - Extra markdown features
+- Syntax highlighting with *[highlight.js](https://highlightjs.org/)*
 - Navigation by [fetch requests](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 - Local caching for faster load times
 - Error pages
@@ -29,6 +42,14 @@
 - Definition lists
 - Containers (custom CSS classes on `div`s)
 - HTML code
+
+### Syntax highlighting
+
+Fenced code blocks are automatically processed by *highlight.js*. Languages supported are the default languages in the *highlight.js* bundle. For syntax highlighting you have to include a *highlight.js* style in your `index.html`.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.10.0/styles/default.css">
+```
 
 ## Usage
 
