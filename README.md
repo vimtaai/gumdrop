@@ -1,6 +1,6 @@
 # Gumdrop
 
-[![NPM version 2.0.0](https://img.shields.io/badge/npm-2.0.0-blue.svg)](https://npmjs.com/package/gumdrop)
+[![NPM version 2.0.1](https://img.shields.io/badge/npm-2.0.1-blue.svg)](https://npmjs.com/package/gumdrop)
 [![JavaScript Standard Style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 ![MIT license](https://img.shields.io/badge/license-MIT-green.svg)
 

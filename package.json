@@ -1,6 +1,6 @@
 {
   "name": "gumdrop",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Script to display Markdown documents as static HTML pages",
   "author": "Márton Visnovitz <vimtaai@inf.elte.hu>",
   "license": "MIT",
@@ -9,14 +9,14 @@
   "bugs": "https://github.com/vimtaai/gumdrop/issues",
   "homepage": "https://github.com/vimtaai/gumdrop#readme",
   "scripts": {
-    "build": "rollup -c --environment BUILD:production",
-    "build:dev": "rollup -c",
-    "watch": "rollup -c -w",
+    "build": "node bin/gumdrop.js build",
+    "build:dev": "node bin/gumdrop.js build --dev",
     "prepare": "npm run build && npm run build:dev"
   },
   "devDependencies": {
+    "commander": "^2.17.1",
+    "mkdirp": "^0.5.1",
     "rollup": "^0.61.2",
-    "rollup-plugin-terser": "^1.0.1"
-  },
-  "dependencies": {}
+    "terser": "^3.8.1"
+  }
 }
