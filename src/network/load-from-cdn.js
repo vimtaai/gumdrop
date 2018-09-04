@@ -1,12 +1,12 @@
-const CDN = `https://cdn.jsdelivr.net`;
+const CDN = `https://cdn.jsdelivr.net`
 
 export function loadFromCDN (packageName) {
-  const script = document.createElement('script');
+  const script = document.createElement('script')
 
-  script.crossOrigin = true;
-  script.src = `${CDN}/${packageName}`;
+  script.crossOrigin = true
+  script.src = `${CDN}/${packageName}`
 
-  document.body.appendChild(script);
+  document.body.appendChild(script)
 }
 
-export default loadFromCDN;
+export default loadFromCDN
