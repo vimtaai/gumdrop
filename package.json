@@ -9,13 +9,11 @@
   "bugs": "https://github.com/vimtaai/gumdrop/issues",
   "homepage": "https://github.com/vimtaai/gumdrop#readme",
   "scripts": {
-    "build": "node bin/gumdrop.js build",
-    "build:dev": "node bin/gumdrop.js build --dev",
+    "build": "rollup src/index.js -o build/gumdrop.js -f iife -m",
+    "build:dev": "rollup src/index.js -f iife | terser -c -m",
     "prepare": "npm run build && npm run build:dev"
   },
-  "dependencies": {
-    "commander": "^2.18.0",
-    "mkdirp": "^0.5.1",
+  "devDependencies": {
     "rollup": "^0.65.2",
     "terser": "^3.8.2"
   }
