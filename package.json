@@ -10,7 +10,7 @@
   "homepage": "https://github.com/vimtaai/gumdrop#readme",
   "scripts": {
     "build": "rollup src/index.js -o build/gumdrop.js -f iife -m",
-    "build:dev": "rollup src/index.js -f iife | terser -c -m",
+    "build:dev": "rollup src/index.js -f iife | terser -c -m -o build/gumdrop.min.js",
     "prepare": "npm run build && npm run build:dev"
   },
   "devDependencies": {
