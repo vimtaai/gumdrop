@@ -1,23 +1,6 @@
-# See https://docs.npmjs.com/misc/developers for more about ignoring files.
-
 # dependencies
-/node_modules
-
-# testing
-/coverage
-
+node_modules
 # version control
 .git
-
-# misc
-.cache
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-
 # editor config
 .vscode
