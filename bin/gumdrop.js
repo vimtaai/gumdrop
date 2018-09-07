@@ -7,5 +7,5 @@ const program = require('commander')
 program
   .description('CLI for building Gumdrop')
   .usage('<command> [options]')
-  .command('build', 'Generate custom MDSS stylesheets').alias('b')
+  .command('build', 'Build Gumdrop').alias('b')
   .parse(process.argv)

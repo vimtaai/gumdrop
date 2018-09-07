@@ -10,7 +10,7 @@ const sourcePath = path.resolve(defaultSourcePath)
 const outputPath = path.resolve(defaultOutputPath)
 
 program
-  .option('-d --dev', 'genereate uncompressed, development stylesheets')
+  .option('-d --dev', 'genereate uncompressed, development script')
   .parse(process.argv)
 
 const rollup = require('rollup') // Build tool
