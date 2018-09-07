@@ -13,7 +13,7 @@
     "build:dev": "node bin/gumdrop.js build --dev",
     "prepare": "npm run build && npm run build:dev"
   },
-  "devDependencies": {
+  "dependencies": {
     "commander": "^2.17.1",
     "mkdirp": "^0.5.1",
     "rollup": "^0.61.2",
