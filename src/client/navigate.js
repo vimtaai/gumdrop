@@ -1,6 +1,6 @@
 /* global location */
 
-import fetchResource from '../network/fetch-resource'
+import fetchResource from '../network/fetch'
 import transformLoops from './transform-loops'
 
 const root = document.querySelector('main')

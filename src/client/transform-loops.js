@@ -1,10 +1,9 @@
-import fetchResource from '../network/fetch-resource'
+import fetchResource from '../network/fetch'
 
 const regex = /\{\{(.+?)\}\}/g
 
 function replacer (data, variableScope) {
   return function (_, path) {
-    console.log(path, `${variableScope}:`)
     if (variableScope !== '') {
       if (!path.startsWith(`${variableScope}:`)) {
         return `{{${path}}}`

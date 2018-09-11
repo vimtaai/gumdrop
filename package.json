@@ -9,8 +9,8 @@
   "bugs": "https://github.com/vimtaai/gumdrop/issues",
   "homepage": "https://github.com/vimtaai/gumdrop#readme",
   "scripts": {
-    "build": "rollup src/index.js -o build/gumdrop.js -f iife -m",
-    "build:dev": "rollup src/index.js -f iife | terser -c -m -o build/gumdrop.min.js",
+    "build": "rollup src/index.js -f iife | terser -c -m -o build/gumdrop.min.js",
+    "build:dev": "rollup src/index.js -o build/gumdrop.js -f iife -m",
     "prepare": "npm run build && npm run build:dev"
   },
   "devDependencies": {
