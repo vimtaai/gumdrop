@@ -1,6 +1,6 @@
 # Gumdrop
 
-[![NPM version 2.1.0](https://img.shields.io/badge/npm-2.1.0-blue.svg)](https://npmjs.com/package/gumdrop)
+[![NPM version 2.1.1](https://img.shields.io/badge/npm-2.1.1-blue.svg)](https://npmjs.com/package/gumdrop)
 [![JavaScript Standard Style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 ![MIT license](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -13,8 +13,8 @@
 ## Features
 
 - Displays Markdown documents as a static website
-- Automatic parsing of Markdown
-- Extra markdown features
+- Automatic parsing of Markdown files
+- Extra Markdown features
 - Syntax highlighting with *[highlight.js](https://highlightjs.org/)*
 - Navigation by [fetch requests](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 - Local caching for faster load times
