@@ -1,40 +1,77 @@
-import fetchResource from '../network/fetch-resource';
+import fetchResource from '../network/fetch'
 
-const regex = /\{\{(.+?)\}\}/g;
+const regex = /\{\{(.+?)\}\}/g
 
-export async function transformLoops () {
-  const loops = Array.from(document.querySelectorAll('[data-each]')).map((node) => ({
-    node,
-    dataFile: node.getAttribute('data-each'),
-    display: node.style.display || null
-  }));
-
-  for (const loop of loops) {
-    loop.node.style.display = 'none';
-    loop.node.removeAttribute('data-each');
-  }
-
-  for (const loop of loops) {
-    const data = await fetchResource('data', loop.dataFile, 'json', []);
-    const parent = loop.node.parentNode;
-
-    for (const item of data) {
-      const replacer = (_, property) => item[property.trim()];
-      const elem = loop.node.cloneNode(true);
-      const attributes = Array.from(elem.attributes);
-
-      for (const attribute of attributes) {
-        attribute.value = attribute.value.replace(regex, replacer);
+function replacer (data, variableScope) {
+  return function (_, path) {
+    if (variableScope !== '') {
+      if (!path.startsWith(`${variableScope}:`)) {
+        return `{{${path}}}`
       }
 
-      elem.innerHTML = elem.innerHTML.replace(regex, replacer);
-      elem.style.display = loop.display;
-
-      parent.insertBefore(elem, loop.node);
+      return getValueByPath(data, path.split(':')[1])
+    } else {
+      return getValueByPath(data, path)
     }
-
-    parent.removeChild(loop.node);
   }
 }
 
-export default transformLoops;
+function getValueByPath (obj, path) {
+  if (obj.hasOwnProperty(path)) {
+    return obj[path]
+  }
+
+  const next = path.substring(0, path.indexOf('.'))
+
+  if (obj.hasOwnProperty(next) && typeof obj[next] === 'object') {
+    return getValueByPath(obj[next], path.substring(path.indexOf('.') + 1))
+  }
+
+  return undefined
+}
+
+export async function transformLoops (root, loopData = {}, loopVariable = '') {
+  const node = root.querySelector('[data-each]')
+
+  if (node === null) {
+    return
+  }
+
+  const display = node.style.display || null
+  const parent = node.parentNode
+  const collection = node.getAttribute('data-each')
+
+  let currentData = {}
+  let variableScope = ''
+  if (collection.match(regex)) {
+    variableScope = collection.replace(regex, (_, name) => name)
+    currentData = getValueByPath(loopData, variableScope)
+  } else {
+    currentData = await fetchResource('data', collection, 'json', [])
+  }
+
+  node.style.display = 'none'
+  node.removeAttribute('data-each')
+
+  for (const item of currentData) {
+    const nodeClone = node.cloneNode(true)
+    const attributes = Array.from(nodeClone.attributes)
+
+    for (const attribute of attributes) {
+      attribute.value = attribute.value.replace(regex, replacer(item, variableScope))
+    }
+
+    await transformLoops(nodeClone, item, variableScope)
+
+    nodeClone.innerHTML = nodeClone.innerHTML.replace(regex, replacer(item, variableScope))
+    nodeClone.style.display = display
+
+    parent.insertBefore(nodeClone, node)
+  }
+
+  parent.removeChild(node)
+
+  await transformLoops(root)
+}
+
+export default transformLoops

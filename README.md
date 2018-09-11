@@ -1,6 +1,6 @@
 # Gumdrop
 
-[![NPM version 2.0.0](https://img.shields.io/badge/npm-2.0.0-blue.svg)](https://npmjs.com/package/gumdrop)
+[![NPM version 2.1.0](https://img.shields.io/badge/npm-2.1.0-blue.svg)](https://npmjs.com/package/gumdrop)
 [![JavaScript Standard Style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 ![MIT license](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -9,16 +9,6 @@
 ## About
 
 **Gumdrop** is designed to be an easy to use, standalone script that can generate websites and documentations written in [Markdown](https://daringfireball.net/projects/markdown/syntax). It is bundled with all its dependencies (including the Markdown parser) and does not require any configuration or initialization.
-
-## :sparkles: New in Version 2
-
-- Syntax highlighting support
-- Smaller bundle size
-- Improved load times
-- Less network traffic
-- Dependencies served from CDN
-- Improved caching
-- Cleaner code
 
 ## Features
 
