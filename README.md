@@ -13,8 +13,8 @@
 ## Features
 
 - Displays Markdown documents as a static website
-- Automatic parsing of Markdown
-- Extra markdown features
+- Automatic parsing of Markdown files
+- Extra Markdown features
 - Syntax highlighting with *[highlight.js](https://highlightjs.org/)*
 - Navigation by [fetch requests](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 - Local caching for faster load times
