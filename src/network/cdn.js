@@ -18,7 +18,7 @@ export const cdn = {
       ${name !== undefined ? `module.exports = ${name};` : ``}
     })(window.module)`)
 
-    return window.module.exports.default || window.module.exports
+    return window.module.exports
   }
 }
 
