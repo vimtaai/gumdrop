@@ -45,7 +45,7 @@ export async function transformLoops (root, loopData = {}, loopVariable = '') {
   let variableScope = ''
   if (collection.match(regex)) {
     variableScope = collection.replace(regex, (_, name) => name)
-    currentData = getValueByPath(loopData, variableScope)
+    currentData = getValueByPath(loopData, variableScope) || []
   } else {
     currentData = await fetchResource('data', collection, 'json', [])
   }
