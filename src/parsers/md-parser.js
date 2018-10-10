@@ -27,7 +27,7 @@ async function createParser () {
     validate: () => true,
     render: function (tokens, idx) {
       if (tokens[idx].type === 'container__open') {
-        return `<div ${tokens[idx].info.trim() ? `class="${tokens[idx].info.trim()}">` : ``}>`
+        return `<div ${tokens[idx].info.trim() ? `class="${tokens[idx].info.trim()}"` : ``}>`
       } else {
         return `</div>`
       }
