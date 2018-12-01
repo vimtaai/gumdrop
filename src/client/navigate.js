@@ -9,7 +9,7 @@ const htmlParser = document.createElement('div')
 const timeUntilLoader = 500
 
 export async function navigate () {
-  const [page, fragment] = location.hash.replace(/^#\/?/, '').split('#')
+  const [page, fragment] = location.hash.replace(/^#!?\/?/, '').split('#')
 
   const timer = window.setTimeout(async function () {
     await (root.innerHTML = loader)
