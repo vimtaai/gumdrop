@@ -1,6 +1,6 @@
 {
   "name": "gumdrop",
-  "version": "2.3.0",
+  "version": "4.0.0",
   "description": "Script to display Markdown documents as static HTML pages",
   "author": "Márton Visnovitz <vimtaai@inf.elte.hu>",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "prepare": "npm run build && npm run build:dev"
   },
   "devDependencies": {
-    "rollup": "^0.67.3",
-    "terser": "^3.10.13"
+    "rollup": "^1.1.2",
+    "terser": "^3.16.1"
   }
 }

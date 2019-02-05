@@ -1,6 +1,6 @@
 # Gumdrop
 
-[![NPM version 2.3.0](https://img.shields.io/badge/npm-2.3.0-blue.svg)](https://npmjs.com/package/gumdrop)
+[![NPM version 4.0.0](https://img.shields.io/badge/npm-4.0.0-blue.svg)](https://npmjs.com/package/gumdrop)
 [![JavaScript Standard Style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 ![MIT license](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -15,7 +15,7 @@
 - Displays Markdown documents as a static website
 - Automatic parsing of Markdown files
 - Extra Markdown features
-- Syntax highlighting with *[highlight.js](https://highlightjs.org/)*
+- Syntax highlighting with _[highlight.js](https://highlightjs.org/)_
 - Navigation by [fetch requests](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 - Local caching for faster load times
 - Error pages
@@ -35,10 +35,13 @@
 
 ### Syntax highlighting
 
-Fenced code blocks are automatically processed by *highlight.js*. Languages supported are the default languages in the *highlight.js* bundle. For syntax highlighting you have to include a *highlight.js* style in your `index.html`.
+Fenced code blocks are automatically processed by _highlight.js_. Languages supported are the default languages in the _highlight.js_ bundle. For syntax highlighting you have to include a _highlight.js_ style in your `index.html`.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.10.0/styles/default.css">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/highlightjs@9.10.0/styles/default.css"
+/>
 ```
 
 ## Usage
