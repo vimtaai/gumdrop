@@ -13,7 +13,7 @@ export async function fetchResource(folder, name, type, defaultValue) {
   return response.text();
 }
 
-export async function fetchData(name, type = "json") {
+export async function fetchData(name, type = "yaml") {
   if (cache.contains("data", name)) {
     return cache.get("data", name);
   }
@@ -42,7 +42,7 @@ export async function fetchContent(folder, name) {
   if (dataField !== undefined) {
     const dataSources = Array.isArray(dataField) ? dataField : [dataField];
     for (const dataSource of dataSources) {
-      context[dataSource] = await fetchData(dataSource, "json");
+      context[dataSource] = await fetchData(dataSource, "yaml");
     }
   }
 
