@@ -1,4 +1,4 @@
-import { fetchResource } from "../network/fetch";
+import { fetchContent } from "../network/fetch";
 import { currentLocation } from "./location";
 
 const root = document.querySelector("main");
@@ -19,7 +19,7 @@ export async function handlePageNavigation() {
   }, timeoutUntilLoader);
 
   const file = page || "index";
-  const content = await fetchResource("pages", file, "md");
+  const content = await fetchContent("pages", file, "md");
 
   root.innerHTML = content;
   window.clearTimeout(loaderTimer);

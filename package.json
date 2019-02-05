@@ -22,6 +22,9 @@
     "watch:browser": "rollup --config --environment TARGET:browser --watch",
     "prepare": "npm run build:node && npm run build:browser && npm run build:browser:dev"
   },
+  "dependencies": {
+    "js-yaml": "^3.12.1"
+  },
   "devDependencies": {
     "rollup": "^1.1.2",
     "rollup-plugin-terser": "^4.0.4"

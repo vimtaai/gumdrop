@@ -3,7 +3,14 @@ import { terser } from "rollup-plugin-terser";
 
 import { name, module as input } from "./package.json";
 
-const output = {};
+const external = ["js-yaml", "mustache"];
+
+const output = {
+  globals: {
+    "js-yaml": "jsyaml",
+    mustache: "Mustache"
+  }
+};
 
 if (process.env.TARGET === "node") {
   const filename = name + ".js";
@@ -33,5 +40,6 @@ export default {
   input,
   output,
   plugins,
+  external,
   watch
 };

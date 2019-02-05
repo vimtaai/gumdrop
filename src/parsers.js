@@ -1,7 +1,9 @@
 import { parseMarkdown } from "./parsers/markdown";
 import { parseJson } from "./parsers/json";
+import { parseYaml } from "./parsers/yaml";
 
 export const parsers = {
-  md: parseMarkdown,
-  json: parseJson
+  yaml: parseYaml,
+  json: parseJson,
+  md: parseMarkdown
 };

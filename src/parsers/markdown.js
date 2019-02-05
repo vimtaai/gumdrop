@@ -1,3 +1,5 @@
-export async function parseMarkdown(response) {
-  return ExtraMark.render(await response.text());
+// import { Mustache } from "mustache";
+
+export function parseMarkdown(source) {
+  return ExtraMark.render(source);
 }

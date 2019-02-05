@@ -1,3 +1,3 @@
-export async function parseJson(response) {
-  return response.json();
+export function parseJson(source) {
+  return JSON.parse(source);
 }
