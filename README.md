@@ -1,7 +1,7 @@
 # Gumdrop
 
 [![NPM version 4.0.0](https://img.shields.io/badge/npm-4.0.0-blue.svg)](https://npmjs.com/package/gumdrop)
-[![JavaScript Standard Style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ![MIT license](https://img.shields.io/badge/license-MIT-green.svg)
 
 > Script to display Markdown documents as static HTML pages
@@ -38,10 +38,7 @@
 Fenced code blocks are automatically processed by _highlight.js_. Languages supported are the default languages in the _highlight.js_ bundle. For syntax highlighting you have to include a _highlight.js_ style in your `index.html`.
 
 ```html
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/highlightjs@9.10.0/styles/default.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.10.0/styles/default.css" />
 ```
 
 ## Usage
@@ -64,10 +61,7 @@ To use collections create JSON files in the `data` folder. Each of your data fil
 ```json
 // data/pages.json
 
-[
-  { "title": "Main Page", "url": "#index" },
-  { "title": "About", "url": "#about" }
-]
+[{ "title": "Main Page", "url": "#index" }, { "title": "About", "url": "#about" }]
 ```
 
 ```html

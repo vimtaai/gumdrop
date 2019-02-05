@@ -1,34 +1,32 @@
 export const cache = {
   store: {},
 
-  containsFolder (folder) {
-    return this.store.hasOwnProperty(folder)
+  containsFolder(folder) {
+    return this.store.hasOwnProperty(folder);
   },
 
-  contains (folder, name) {
+  contains(folder, name) {
     if (!this.containsFolder(folder)) {
-      return false
+      return false;
     }
 
-    return this.store[folder].hasOwnProperty(name)
+    return this.store[folder].hasOwnProperty(name);
   },
 
-  get (folder, name) {
+  get(folder, name) {
     if (!this.containsFolder(folder)) {
-      return undefined
+      return undefined;
     }
 
-    return this.store[folder][name]
+    return this.store[folder][name];
   },
 
-  set (folder, name, value) {
+  set(folder, name, value) {
     if (!this.containsFolder(folder)) {
-      this.store[folder] = {}
+      this.store[folder] = {};
     }
 
-    this.store[folder][name] = value
-    return value
+    this.store[folder][name] = value;
+    return value;
   }
-}
-
-export default cache
+};

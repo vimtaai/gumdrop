@@ -1,31 +1,29 @@
-/* global location */
+import { fetchResource } from "../network/fetch";
 
-import fetchResource from '../network/fetch'
-import transformLoops from './transform-loops'
+const root = document.querySelector("main");
+const loader = root.innerHTML;
+const timeoutUntilLoader = 500;
 
-const root = document.querySelector('main')
-const loader = root.innerHTML
-const htmlParser = document.createElement('div')
-const timeUntilLoader = 500
+export async function navigate() {
+  const [file, fragment] = window.location.hash.replace(/^#!?\/?/, "").split("#");
 
-export async function navigate () {
-  const [page, fragment] = location.hash.replace(/^#!?\/?/, '').split('#')
+  const loaderTimer = window.setTimeout(function() {
+    root.innerHTML = loader;
+  }, timeoutUntilLoader);
 
-  const timer = window.setTimeout(async function () {
-    await (root.innerHTML = loader)
-  }, timeUntilLoader)
-  htmlParser.innerHTML = await fetchResource('pages', (page || 'index'), 'md')
-  await transformLoops(htmlParser)
-  root.innerHTML = htmlParser.innerHTML
-  window.clearTimeout(timer)
+  const page = file || "index";
+  const content = await fetchResource("pages", page, "md");
 
-  if (fragment !== undefined) {
-    const element = document.getElementById(fragment)
+  root.innerHTML = content;
+  window.clearTimeout(loaderTimer);
 
-    if (element !== null) {
-      element.scrollIntoView({ block: 'center', behavior: 'smooth' })
+  if (fragment === undefined) {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  } else {
+    const elem = document.getElementById(fragment);
+
+    if (elem !== null) {
+      elem.scrollIntoView({ block: "start", behavior: "smooth" });
     }
   }
 }
-
-export default navigate
