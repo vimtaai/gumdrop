@@ -2,19 +2,31 @@
   "name": "gumdrop",
   "version": "4.0.0",
   "description": "Script to display Markdown documents as static HTML pages",
+  "keywords": [
+    "markdown",
+    "static-site"
+  ],
   "author": "Márton Visnovitz <vimtaai@inf.elte.hu>",
   "license": "MIT",
-  "main": "build/gumdrop.min.js",
+  "module": "src/index.js",
+  "main": "lib/gumdrop.js",
+  "browser": "dist/gumdrop.min.js",
   "repository": "github:vimtaai/gumdrop",
   "bugs": "https://github.com/vimtaai/gumdrop/issues",
   "homepage": "https://github.com/vimtaai/gumdrop#readme",
   "scripts": {
-    "build": "rollup src/index.js -f iife -o build/gumdrop.min.js && terser build/gumdrop.min.js -c -m -o build/gumdrop.min.js",
-    "build:dev": "rollup src/index.js -o build/gumdrop.js -f iife -m",
-    "prepare": "npm run build && npm run build:dev"
+    "build:node": "rollup --config --environment TARGET:node",
+    "build:browser": "rollup --config --environment TARGET:browser,BUILD:production",
+    "build:browser:dev": "rollup --config --environment TARGET:browser",
+    "watch:node": "rollup --config --environment TARGET:node --watch",
+    "watch:browser": "rollup --config --environment TARGET:browser --watch",
+    "prepare": "npm run build:node && npm run build:browser && npm run build:browser:dev"
   },
   "devDependencies": {
     "rollup": "^1.1.2",
-    "terser": "^3.16.1"
+    "rollup-plugin-terser": "^4.0.4"
+  },
+  "prettier": {
+    "printWidth": 100
   }
 }
