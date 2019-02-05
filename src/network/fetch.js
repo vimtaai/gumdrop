@@ -37,12 +37,12 @@ export async function fetchContent(folder, name) {
   }
 
   const [_, front, template] = result;
-  const { data: dataField, ...context } = parsers.yaml(front);
+  const context = parsers.yaml(front);
 
-  if (dataField !== undefined) {
-    const dataSources = Array.isArray(dataField) ? dataField : [dataField];
-    for (const dataSource of dataSources) {
-      context[dataSource] = await fetchData(dataSource, "yaml");
+  for (const field of Object.keys(context)) {
+    if (field.match(/^\(.+\)$/)) {
+      const fileName = field.replace(/^\((.+)\)$/, "$1");
+      context[fileName] = await fetchData(fileName, "yaml");
     }
   }
 
