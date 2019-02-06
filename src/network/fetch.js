@@ -40,9 +40,8 @@ export async function fetchContent(folder, name) {
   const context = parsers.yaml(front);
 
   for (const field of Object.keys(context)) {
-    if (field.match(/^\(.+\)$/)) {
-      const fileName = field.replace(/^\((.+)\)$/, "$1");
-      context[fileName] = await fetchData(fileName, "yaml");
+    if (context[field] instanceof Promise) {
+      context[field] = await context[field];
     }
   }
 
