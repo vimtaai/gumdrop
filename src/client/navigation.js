@@ -23,9 +23,6 @@ export function handleLinkClick(event) {
     return;
   }
 
-  if (href !== undefined) {
-    event.preventDefault();
-  }
-
+  event.preventDefault();
   updateHash(href);
 }
