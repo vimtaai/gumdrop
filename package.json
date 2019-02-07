@@ -23,7 +23,9 @@
     "prepare": "npm run build:node && npm run build:browser && npm run build:browser:dev"
   },
   "dependencies": {
-    "js-yaml": "^3.12.1"
+    "extramark": "^0.1.0",
+    "js-yaml": "^3.12.1",
+    "mustache": "^3.0.1"
   },
   "devDependencies": {
     "rollup": "^1.1.2",
