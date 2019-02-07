@@ -1,9 +1,10 @@
 import { fetchData } from "../network/fetch";
+import { imports } from "../network/imports";
 
-// import { jsyaml } from "js-yaml";
+export async function parseYaml(source) {
+  const JSYaml = await imports.jsyaml;
 
-export function parseYaml(source) {
-  const FileYamlType = new jsyaml.Type("!file", {
+  const FileYamlType = new JSYaml.Type("!file", {
     kind: "scalar",
     resolve(data) {
       return data !== null;
@@ -13,7 +14,7 @@ export function parseYaml(source) {
     }
   });
 
-  const YamlWithFilesSchema = jsyaml.Schema.create([FileYamlType]);
+  const YamlWithFilesSchema = JSYaml.Schema.create([FileYamlType]);
 
-  return jsyaml.safeLoad(source, { schema: YamlWithFilesSchema });
+  return JSYaml.safeLoad(source, { schema: YamlWithFilesSchema });
 }

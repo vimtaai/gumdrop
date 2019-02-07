@@ -1,3 +1,4 @@
+import { imports } from "./imports";
 import { cache } from "../client/cache";
 import { parsers } from "../parsers";
 
@@ -20,7 +21,7 @@ export async function fetchData(name, type = "yaml") {
 
   const data = await fetchResource("data", name, type, {});
 
-  return cache.set("data", name, parsers[type](data));
+  return cache.set("data", name, await parsers[type](data));
 }
 
 export async function fetchContent(folder, name) {
@@ -28,6 +29,7 @@ export async function fetchContent(folder, name) {
     return cache.get(folder, name);
   }
 
+  const Mustache = await imports.mustache;
   const content = await fetchResource(folder, name, "md", " ");
 
   const result = frontMatterRegexp.exec(content);
@@ -47,5 +49,5 @@ export async function fetchContent(folder, name) {
 
   const parsedContent = Mustache.render(template, context);
 
-  return cache.set(folder, name, parsers.md(parsedContent));
+  return cache.set(folder, name, await parsers.md(parsedContent));
 }

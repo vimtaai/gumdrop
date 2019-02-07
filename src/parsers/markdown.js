@@ -1,5 +1,6 @@
-// import { Mustache } from "mustache";
+import { imports } from "../network/imports";
 
-export function parseMarkdown(source) {
+export async function parseMarkdown(source) {
+  const ExtraMark = await imports.extramark;
   return ExtraMark.render(source);
 }
