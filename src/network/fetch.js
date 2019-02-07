@@ -3,9 +3,7 @@ import { cache } from "../client/cache";
 import { parsers } from "../parsers";
 import { FileData } from "../parsers/yaml";
 
-const frontMatterRegexp = /^---[ \t]*(\r?\n.*\r?\n|\r?\n)---[ \t]*\r\n(.*)$/s;
-
-export async function fetchResource(folder, name, type, defaultValue) {
+async function fetchResource(folder, name, type, defaultValue) {
   const response = await window.fetch(`${folder}/${name}.${type}`, { cache: "no-cache" });
 
   if (!response.ok) {
@@ -26,6 +24,8 @@ export async function fetchData(name, type = "yaml") {
 }
 
 export async function fetchContent(folder, name) {
+  const frontMatterRegexp = /^---[ \t]*(\r?\n.*\r?\n|\r?\n)---[ \t]*\r\n(.*)$/s;
+
   if (cache.contains(folder, name)) {
     return cache.get(folder, name);
   }
@@ -41,8 +41,6 @@ export async function fetchContent(folder, name) {
 
   const [_, front, template] = result;
   const context = await parsers.yaml(front);
-
-  console.log(context);
 
   for (const field of Object.keys(context)) {
     if (context[field] instanceof FileData) {

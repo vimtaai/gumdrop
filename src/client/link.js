@@ -1,4 +1,4 @@
-import { currentLocation, parseLocation } from "./location";
+import { getCurrentLocation, parseLocation } from "./location";
 
 export function handleLinkClick(event) {
   const target = event.target.closest("a");
@@ -20,7 +20,7 @@ export function handleLinkClick(event) {
     window.location.hash = "#!/" + page + (fragment ? "#" + fragment : "");
   } else {
     const { fragment } = parseLocation(href);
-    const { page } = currentLocation();
+    const { page } = getCurrentLocation();
     window.location.hash = "#!/" + page + "#" + fragment;
   }
 }

@@ -1,34 +1,34 @@
 import { fetchContent } from "../network/fetch";
-import { currentLocation } from "./location";
+import { getCurrentLocation } from "./location";
 
-const root = document.querySelector("main");
-const loader = root.innerHTML;
-const timeoutUntilLoader = 500;
+const rootNode = document.querySelector("main");
+const loaderElement = rootNode.innerHTML;
 
 let previousLocation = {};
 
 export async function handlePageNavigation() {
-  const { page } = currentLocation();
+  const timeoutUntilLoader = 500;
+  const { page } = getCurrentLocation();
 
   if (page === previousLocation.page) {
     return;
   }
 
   const loaderTimer = window.setTimeout(function() {
-    root.innerHTML = loader;
+    rootNode.innerHTML = loaderElement;
   }, timeoutUntilLoader);
 
   const file = page || "index";
   const content = await fetchContent("pages", file, "md");
 
-  root.innerHTML = content;
+  rootNode.innerHTML = content;
   window.clearTimeout(loaderTimer);
 
   previousLocation.page = page;
 }
 
 export function handleFragmentNavigation() {
-  const { fragment } = currentLocation();
+  const { fragment } = getCurrentLocation();
 
   if (fragment === undefined) {
     window.scrollTo({ top: 0, behavior: "auto" });

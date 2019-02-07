@@ -21,23 +21,22 @@ const cdn = {
   }
 };
 
-export const imports = new Proxy(
-  {},
-  {
-    async get(imports, name) {
-      if (imports.hasOwnProperty(name)) {
-        return imports[name];
-      }
-
-      if (!dependencies.hasOwnProperty(name)) {
-        throw new Error(`Unknown dependency ${name}.`);
-      }
-
-      const dependency = dependencies[name];
-      const url = `${dependency.name}@${dependency.version}/${dependency.path}`;
-
-      imports[name] = await cdn.import(url, dependency.export);
+const proxy = {
+  async get(imports, name) {
+    if (imports.hasOwnProperty(name)) {
       return imports[name];
     }
+
+    if (!dependencies.hasOwnProperty(name)) {
+      throw new Error(`Unknown dependency ${name}.`);
+    }
+
+    const dependency = dependencies[name];
+    const url = `${dependency.name}@${dependency.version}/${dependency.path}`;
+
+    imports[name] = await cdn.import(url, dependency.export);
+    return imports[name];
   }
-);
+};
+
+export const imports = new Proxy({}, proxy);

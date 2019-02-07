@@ -4,6 +4,6 @@ export function parseLocation(url) {
   return { page, fragment };
 }
 
-export function currentLocation() {
+export function getCurrentLocation() {
   return parseLocation(window.location.hash);
 }
