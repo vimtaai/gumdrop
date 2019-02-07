@@ -1,5 +1,18 @@
-import { fetchData } from "../network/fetch";
 import { imports } from "../network/imports";
+
+export class FileData {
+  constructor(file) {
+    const dot = file.lastIndexOf(".");
+
+    if (dot === -1) {
+      this.file = file;
+      this.extension = "yaml";
+    } else {
+      this.file = file.slice(0, dot);
+      this.extension = file.slice(dot + 1);
+    }
+  }
+}
 
 export async function parseYaml(source) {
   const JSYaml = await imports.jsyaml;
@@ -10,7 +23,7 @@ export async function parseYaml(source) {
       return data !== null;
     },
     construct(data) {
-      return fetchData(data, "yaml");
+      return new FileData(data);
     }
   });
 

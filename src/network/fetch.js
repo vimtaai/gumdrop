@@ -1,6 +1,7 @@
 import { imports } from "./imports";
 import { cache } from "../client/cache";
 import { parsers } from "../parsers";
+import { FileData } from "../parsers/yaml";
 
 const frontMatterRegexp = /^---[ \t]*(\r?\n.*\r?\n|\r?\n)---[ \t]*\r\n(.*)$/s;
 
@@ -39,11 +40,13 @@ export async function fetchContent(folder, name) {
   }
 
   const [_, front, template] = result;
-  const context = parsers.yaml(front);
+  const context = await parsers.yaml(front);
+
+  console.log(context);
 
   for (const field of Object.keys(context)) {
-    if (context[field] instanceof Promise) {
-      context[field] = await context[field];
+    if (context[field] instanceof FileData) {
+      context[field] = await fetchData(context[field].file, context[field].extension);
     }
   }
 
