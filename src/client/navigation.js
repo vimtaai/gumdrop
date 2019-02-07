@@ -1,67 +1,31 @@
-import { fetchContent } from "../network/fetch";
-import { getCurrentLocation, parseLocation } from "./location";
+import { updateLocation } from "./location";
 
-const rootNode = document.querySelector("main") || document.body;
-const loaderElement = rootNode.innerHTML;
-const originalTitle = document.title;
+import { updatePage } from "./navigation/page";
+import { scrollToFragment } from "./navigation/fragment";
+import { updateHash } from "./navigation/hash";
 
-let previousLocation = {};
+export async function handleHashChange() {
+  updateLocation();
+  await updatePage();
+  scrollToFragment();
+}
 
-async function handlePageNavigation() {
-  const timeoutUntilLoader = 500;
-  const { page } = getCurrentLocation();
+export function handleLinkClick(event) {
+  const target = event.target.closest("a");
 
-  if (page === previousLocation.page) {
+  if (target === null) {
     return;
   }
 
-  const loaderTimer = window.setTimeout(function() {
-    rootNode.innerHTML = loaderElement;
-  }, timeoutUntilLoader);
+  const href = target.getAttribute("href");
 
-  const file = page || "index";
-  const content = await fetchContent("pages", file, "md");
-
-  rootNode.innerHTML = content;
-  window.clearTimeout(loaderTimer);
-
-  const firstHeading = rootNode.querySelector("h1");
-  document.title = firstHeading ? `${firstHeading.textContent} | ${originalTitle}` : originalTitle;
-
-  const links = document.querySelectorAll("a[href]");
-  for (const link of links) {
-    link.classList.remove("active");
-    const href = link.getAttribute("href");
-
-    if (!href.match(/^\/?#!/)) {
-      continue;
-    }
-
-    if (page === parseLocation(href).page) {
-      link.classList.add("active");
-    }
+  if (href.charAt(0) !== "#" || href.charAt(1) === "!") {
+    return;
   }
 
-  previousLocation.page = page;
-}
-
-function handleFragmentNavigation() {
-  const { fragment } = getCurrentLocation();
-
-  if (fragment === undefined) {
-    window.scrollTo({ top: 0, behavior: "auto" });
-  } else {
-    const elem = document.getElementById(fragment);
-
-    if (elem !== null) {
-      elem.scrollIntoView({ block: "start" });
-    }
+  if (href !== undefined) {
+    event.preventDefault();
   }
 
-  previousLocation.fragment = fragment;
-}
-
-export async function handleHashChange() {
-  await handlePageNavigation();
-  handleFragmentNavigation();
+  updateHash(href);
 }
