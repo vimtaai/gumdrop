@@ -1,5 +1,5 @@
-import { handleHashChange } from "./client/navigate";
-import { handleLinkClick } from "./client/link";
+import { handleHashChange } from "./client/navigation";
+import { handleLinkClick } from "./client/link-click";
 
 window.addEventListener("hashchange", handleHashChange);
 window.addEventListener("click", handleLinkClick);

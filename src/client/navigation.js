@@ -1,5 +1,5 @@
 import { fetchContent } from "../network/fetch";
-import { getCurrentLocation } from "./location";
+import { getCurrentLocation, parseLocation } from "./location";
 
 const rootNode = document.querySelector("main") || document.body;
 const loaderElement = rootNode.innerHTML;
@@ -27,6 +27,20 @@ async function handlePageNavigation() {
 
   const firstHeading = rootNode.querySelector("h1");
   document.title = firstHeading ? `${firstHeading.textContent} | ${originalTitle}` : originalTitle;
+
+  const links = document.querySelectorAll("a[href]");
+  for (const link of links) {
+    link.classList.remove("active");
+    const href = link.getAttribute("href");
+
+    if (!href.match(/^\/?#!/)) {
+      continue;
+    }
+
+    if (page === parseLocation(href).page) {
+      link.classList.add("active");
+    }
+  }
 
   previousLocation.page = page;
 }
