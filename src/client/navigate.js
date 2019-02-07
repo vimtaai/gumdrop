@@ -1,7 +1,7 @@
 import { fetchContent } from "../network/fetch";
 import { getCurrentLocation } from "./location";
 
-const rootNode = document.querySelector("main");
+const rootNode = document.querySelector("main") || document.body;
 const loaderElement = rootNode.innerHTML;
 
 let previousLocation = {};
