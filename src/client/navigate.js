@@ -3,10 +3,11 @@ import { getCurrentLocation } from "./location";
 
 const rootNode = document.querySelector("main") || document.body;
 const loaderElement = rootNode.innerHTML;
+const originalTitle = document.title;
 
 let previousLocation = {};
 
-export async function handlePageNavigation() {
+async function handlePageNavigation() {
   const timeoutUntilLoader = 500;
   const { page } = getCurrentLocation();
 
@@ -24,10 +25,13 @@ export async function handlePageNavigation() {
   rootNode.innerHTML = content;
   window.clearTimeout(loaderTimer);
 
+  const firstHeading = rootNode.querySelector("h1");
+  document.title = firstHeading ? `${firstHeading.textContent} | ${originalTitle}` : originalTitle;
+
   previousLocation.page = page;
 }
 
-export function handleFragmentNavigation() {
+function handleFragmentNavigation() {
   const { fragment } = getCurrentLocation();
 
   if (fragment === undefined) {
@@ -45,5 +49,5 @@ export function handleFragmentNavigation() {
 
 export async function handleHashChange() {
   await handlePageNavigation();
-  await handleFragmentNavigation();
+  handleFragmentNavigation();
 }
