@@ -1,6 +1,4 @@
-import { handleHashChange, handleLinkClick } from "./client/navigation";
+import { handleHashChange, handleLoad } from "./client/navigation";
 
 window.addEventListener("hashchange", handleHashChange);
-window.addEventListener("click", handleLinkClick);
-
-handleHashChange();
+window.addEventListener("load", handleLoad);

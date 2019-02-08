@@ -1,28 +1,29 @@
-import { updateLocation } from "./location";
+import { Location } from "./location";
 
-import { updatePage } from "./navigation/page";
+import { updateContent } from "./navigation/content";
+import { updateTitle } from "./navigation/title";
+import { updateActiveLinks } from "./navigation/links";
 import { scrollToFragment } from "./navigation/fragment";
-import { updateHash } from "./navigation/hash";
 
-export async function handleHashChange() {
-  updateLocation();
-  await updatePage();
-  scrollToFragment();
+export async function handleHashChange(event) {
+  const previousLocation = new Location(event.oldURL);
+  const currentLocation = new Location(event.newURL);
+
+  if (currentLocation.page !== previousLocation.page) {
+    await updateContent(currentLocation.page);
+    updateActiveLinks(currentLocation.page);
+    updateTitle();
+  }
+
+  scrollToFragment(currentLocation.fragment);
 }
 
-export function handleLinkClick(event) {
-  const target = event.target.closest("a");
+export async function handleLoad() {
+  const currentLocation = new Location(window.location.href);
 
-  if (target === null) {
-    return;
-  }
+  await updateContent(currentLocation.page);
+  updateActiveLinks(currentLocation.page);
+  updateTitle();
 
-  const href = target.getAttribute("href");
-
-  if (href.charAt(0) !== "#" || href.charAt(1) === "!") {
-    return;
-  }
-
-  event.preventDefault();
-  updateHash(href);
+  scrollToFragment(currentLocation.fragment);
 }

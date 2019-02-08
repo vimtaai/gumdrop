@@ -1,15 +1,21 @@
-export const location = {
-  previous: {},
-  current: {}
-};
+const urlRegexp = /^([^#]*)(#!)?\/?([^#]*)(#)?(.*)/;
 
-export function parseLocation(url) {
-  const [page, fragment] = url.replace(/^\/?#!\/?/, "").split("#");
+export class Location {
+  constructor(url = "") {
+    const [_, site, hashBangExists, page, hashSignExists, fragment] = url.match(urlRegexp);
 
-  return { page, fragment };
-}
+    this.url = url;
+    this.page = page;
+    this.fragment = fragment;
+    this.isAbsolute = site !== "";
+    this.isAnchor = !this.isAbsolute && !hashBangExists && hashSignExists;
+  }
 
-export function updateLocation() {
-  location.previous = location.current;
-  location.current = parseLocation(window.location.hash);
+  getLinkHref(currentPage) {
+    if (!this.isAnchor) {
+      return this.url;
+    }
+
+    return `#!/${currentPage}#${this.fragment}`;
+  }
 }

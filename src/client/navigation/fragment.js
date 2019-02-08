@@ -1,15 +1,9 @@
-import { location } from "../location";
+export function scrollToFragment(fragment) {
+  const elem = window.document.getElementById(fragment);
 
-export function scrollToFragment() {
-  const { fragment } = location.current;
-
-  if (fragment === undefined) {
-    window.scrollTo({ top: 0, behavior: "auto" });
+  if (elem === null) {
+    window.scrollTo({ top: 0 });
   } else {
-    const elem = document.getElementById(fragment);
-
-    if (elem !== null) {
-      elem.scrollIntoView({ block: "start" });
-    }
+    elem.scrollIntoView({ block: "start" });
   }
 }
