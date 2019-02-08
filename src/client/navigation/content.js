@@ -1,5 +1,5 @@
 import { documentRoot, loaderContent } from "../document";
-import { fetchContent } from "../../network/fetch";
+import { fetchContent } from "../../network/server/fetch";
 
 export async function updateContent(currentPage) {
   const timeoutUntilLoader = 500;

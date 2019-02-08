@@ -1,4 +1,4 @@
-import { imports } from "../network/imports";
+import { imports } from "../../remote/imports";
 
 export async function parseMarkdown(source) {
   const ExtraMark = await imports.extramark;

@@ -1,9 +1,11 @@
-export const cache = {
-  store: {},
+export class Cache {
+  constructor() {
+    this.store = {};
+  }
 
   containsFolder(folder) {
     return this.store.hasOwnProperty(folder);
-  },
+  }
 
   contains(folder, name) {
     if (!this.containsFolder(folder)) {
@@ -11,7 +13,7 @@ export const cache = {
     }
 
     return this.store[folder].hasOwnProperty(name);
-  },
+  }
 
   get(folder, name) {
     if (!this.containsFolder(folder)) {
@@ -19,7 +21,7 @@ export const cache = {
     }
 
     return this.store[folder][name];
-  },
+  }
 
   set(folder, name, value) {
     if (!this.containsFolder(folder)) {
@@ -29,4 +31,6 @@ export const cache = {
     this.store[folder][name] = value;
     return value;
   }
-};
+}
+
+export const cache = new Cache();
