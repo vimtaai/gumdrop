@@ -1,45 +1,21 @@
-import path from "path";
-import { terser } from "rollup-plugin-terser";
+const babel = require("rollup-plugin-babel");
+const minify = require("rollup-plugin-babel-minify");
 
-import { name, module as input } from "./package.json";
+const { name: outputFileName, module: input } = require("./package.json");
 
-const external = ["js-yaml", "mustache"];
-
-const output = {
-  globals: {
-    "js-yaml": "jsyaml",
-    mustache: "Mustache"
-  }
-};
-
-if (process.env.TARGET === "node") {
-  const filename = name + ".js";
-
-  output.format = "cjs";
-  output.file = path.join("lib", filename);
-}
+const isProductionBuild = process.env.BUILD === "production";
+const output = {};
+const plugins = [babel()];
 
 if (process.env.TARGET === "browser") {
-  const filename = name + (process.env.BUILD === "production" ? ".min" : "") + ".js";
-
   output.format = "iife";
-  output.file = path.join("dist", filename);
-  output.name = name;
-  output.sourcemap = process.env.BUILD !== "production";
+  output.file = `dist/${outputFileName}${isProductionBuild ? ".min" : ""}.js`;
+  output.name = "Gumdrop";
+  output.sourcemap = !isProductionBuild;
+
+  if (isProductionBuild) {
+    plugins.push(minify());
+  }
 }
 
-const plugins = [];
-
-if (process.env.BUILD === "production") {
-  plugins.push(terser());
-}
-
-const watch = { include: "src/**" };
-
-export default {
-  input,
-  output,
-  plugins,
-  external,
-  watch
-};
+module.exports = { input, output, plugins };

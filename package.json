@@ -2,36 +2,39 @@
   "name": "gumdrop",
   "version": "4.0.0",
   "description": "Script to display Markdown documents as static HTML pages",
-  "keywords": [
-    "markdown",
-    "static-site"
-  ],
   "author": "Márton Visnovitz <vimtaai@inf.elte.hu>",
   "license": "MIT",
+  "repository": "github:vimtaai/gumdrop",
   "module": "src/index.js",
   "main": "lib/gumdrop.js",
   "browser": "dist/gumdrop.min.js",
-  "repository": "github:vimtaai/gumdrop",
-  "bugs": "https://github.com/vimtaai/gumdrop/issues",
-  "homepage": "https://github.com/vimtaai/gumdrop#readme",
+  "files": [
+    "/src",
+    "/lib",
+    "/dist"
+  ],
   "scripts": {
-    "build:node": "rollup --config --environment TARGET:node",
-    "build:browser": "rollup --config --environment TARGET:browser,BUILD:production",
-    "build:browser:dev": "rollup --config --environment TARGET:browser",
-    "watch:node": "rollup --config --environment TARGET:node --watch",
-    "watch:browser": "rollup --config --environment TARGET:browser --watch",
-    "prepare": "npm run build:node && npm run build:browser && npm run build:browser:dev"
+    "lint": "eslint src/**.js",
+    "build:browser": "rollup -c --environment TARGET:browser,BUILD:development",
+    "build:browser:production": "rollup -c --environment TARGET:browser,BUILD:production",
+    "watch:browser": "rollup -c -w --environment TARGET:browser,BUILD:development",
+    "prepare": "npm run build:browser && npm run build:browser:production"
   },
   "dependencies": {
-    "extramark": "^0.1.0",
-    "js-yaml": "^3.12.1",
-    "mustache": "^3.0.1"
+    "extramark": "^0.2.1",
+    "js-yaml": "^3.13.1",
+    "mustache": "^3.0.3"
   },
   "devDependencies": {
-    "rollup": "^1.1.2",
-    "rollup-plugin-terser": "^4.0.4"
-  },
-  "prettier": {
-    "printWidth": 100
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.2.0",
+    "eslint-config-problems": "^3.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2",
+    "rollup": "^1.21.2",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-babel-minify": "^9.0.0"
   }
 }
