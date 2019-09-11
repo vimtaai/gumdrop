@@ -1,7 +1,7 @@
-import { fetchResource } from "./resource";
-import { cache } from "../cache";
-import { parseYaml } from "../parsers/yaml";
-import { parseJson } from "../parsers/json";
+import { cache } from "network/server/cache";
+import { fetchResource } from "network/server/fetch/resource";
+import { parseYaml } from "network/server/parsers/yaml";
+import { parseJson } from "network/server/parsers/json";
 
 const dataParsers = {
   yaml: parseYaml,

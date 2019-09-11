@@ -1,4 +1,4 @@
-import { imports } from "../../remote/imports";
+import { imports } from "network/remote/imports";
 
 export class FileData {
   constructor(file) {

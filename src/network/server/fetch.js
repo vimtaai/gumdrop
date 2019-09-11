@@ -1,10 +1,10 @@
-import { imports } from "../remote/imports";
+import { imports } from "network/remote/imports";
+import { cache } from "network/server/cache";
+import { parseMarkdown } from "network/server/parsers/markdown";
+import { parseFrontMatter } from "network/server/parsers/front-matter";
 
-import { cache } from "./cache";
 import { fetchResource } from "./fetch/resource";
 import { fetchFrontMatterData } from "./fetch/front-matter";
-import { parseMarkdown } from "./parsers/markdown";
-import { parseFrontMatter } from "./parsers/front-matter";
 
 export async function fetchContent(folder, name) {
   if (cache.contains(folder, name)) {

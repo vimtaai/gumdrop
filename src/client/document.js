@@ -1,3 +1,3 @@
-export const documentRoot = document.querySelector("main") || document.body;
-export const documentTitle = document.title;
+export const documentTitle = window.document.title;
+export const documentRoot = window.document.querySelector("main") || document.body;
 export const loaderContent = documentRoot.innerHTML;

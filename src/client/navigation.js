@@ -1,4 +1,4 @@
-import { Location } from "./location";
+import { Location } from "client/location";
 
 import { updateContent } from "./navigation/content";
 import { updateTitle } from "./navigation/title";

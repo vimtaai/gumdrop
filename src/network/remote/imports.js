@@ -1,5 +1,6 @@
-import { dependencies } from "../../dependencies";
-import { cdn } from "./cdn";
+import { dependencies } from "dependencies";
+
+import { cdn } from "network/remote/cdn";
 
 const proxy = {
   async get(imports, name) {

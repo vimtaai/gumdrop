@@ -1,4 +1,4 @@
-import { documentRoot, documentTitle } from "../document";
+import { documentTitle, documentRoot } from "client/document";
 
 export function updateTitle() {
   const firstHeading = documentRoot.querySelector("h1");

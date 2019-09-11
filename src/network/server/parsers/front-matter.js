@@ -1,4 +1,4 @@
-import { parseYaml } from "./yaml";
+import { parseYaml } from "network/server/parsers/yaml";
 
 const frontMatterRegexp = /^---[ \t]*(\r?\n.*\r?\n|\r?\n)---[ \t]*\r\n(.*)$/s;
 
