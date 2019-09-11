@@ -11,5 +11,6 @@
 - **Added** default error message for 404 HTTP errors
 - **Changed** Markdown parser to [ExtraMark](https://github.com/vimtaai/extramark)
 - **Changed** templating method to use [mustache templates](http://mustache.github.io/) **(breaking change)**
+- **Changed** syntax highlighter to [Prism](https://prismjs.com/) for faster load times **(breaking change)**
 - **Changed** the way data is loaded from data files **(breaking change)**
 - **Updated** network and CDN handling
