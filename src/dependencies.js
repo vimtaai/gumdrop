@@ -11,6 +11,11 @@ export const dependencies = {
     path: "mustache.min.js",
     export: "Mustache"
   },
+  prismjs: {
+    version: dependencyVersions.prismjs,
+    path: "prism.min.js",
+    export: "Prism"
+  },
   "js-yaml": {
     version: dependencyVersions["js-yaml"],
     path: "dist/js-yaml.min.js",

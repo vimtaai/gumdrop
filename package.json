@@ -21,7 +21,8 @@
   "dependencies": {
     "extramark": "0.3.1",
     "js-yaml": "3.13.1",
-    "mustache": "3.0.3"
+    "mustache": "3.0.3",
+    "prismjs": "^1.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",

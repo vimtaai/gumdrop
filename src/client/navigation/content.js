@@ -1,3 +1,4 @@
+import { imports } from "network/remote/imports";
 import { fetchContent } from "network/server/fetch";
 
 import { documentRoot, loaderContent } from "client/document";
@@ -13,5 +14,9 @@ export async function updateContent(currentPage) {
   const content = await fetchContent("pages", file, "md");
 
   documentRoot.innerHTML = content;
+
+  const Prism = await imports.prismjs;
+  Prism.highlightAll();
+
   window.clearTimeout(loaderTimer);
 }
