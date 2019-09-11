@@ -19,7 +19,7 @@
     "prepare": "npm run build:browser && npm run build:browser:production"
   },
   "dependencies": {
-    "extramark": "0.2.1",
+    "extramark": "0.3.1",
     "js-yaml": "3.13.1",
     "mustache": "3.0.3"
   },
