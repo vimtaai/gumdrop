@@ -2,7 +2,7 @@ const urlRegexp = /^([^#]*)(#!)?\/?([^#]*)(#)?(.*)/;
 
 export class Location {
   constructor(url = "") {
-    const [_, site, hashBangExists, page, hashSignExists, fragment] = url.match(urlRegexp);
+    const [, site, hashBangExists, page, hashSignExists, fragment] = url.match(urlRegexp);
 
     this.url = url;
     this.page = page;

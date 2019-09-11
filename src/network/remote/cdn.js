@@ -1,13 +1,14 @@
 export class CDN {
   constructor(url) {
     this.url = url;
-    this.eval = window.eval.bind(window);
+    this.eval = window.eval.bind(window); // eslint-disable-line
   }
   async import(module, name = undefined) {
     window.module = {};
     const response = await window.fetch(this.url + module);
 
     if (!response.ok) {
+      // eslint-disable-next-line
       console.error(`Could not load module ${module} from CDN ${this.url} (${response.status})`);
       return;
     }

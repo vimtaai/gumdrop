@@ -4,7 +4,7 @@ export class Cache {
   }
 
   containsFolder(folder) {
-    return this.store.hasOwnProperty(folder);
+    return folder in this.store;
   }
 
   contains(folder, name) {
@@ -12,7 +12,7 @@ export class Cache {
       return false;
     }
 
-    return this.store[folder].hasOwnProperty(name);
+    return name in this.store[folder];
   }
 
   get(folder, name) {

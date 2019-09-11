@@ -33,28 +33,26 @@ Markdown files in the `pages` folder can be loaded. **Gumdrop** watches the hash
 [Link to about.md](#about)
 ```
 
-Static resources (e.g. images) can be loaded from any folder that is served by your file server, paths are relative to `index.html`. Error pages for various HTTP errors can be places in the `errors` folder. Each file should be named according to the HTTP error code it represents (e.g. `errors/404.md`). 
+Static resources (e.g. images) can be loaded from any folder that is served by your file server, paths are relative to `index.html`. Error pages for various HTTP errors can be places in the `errors` folder. Each file should be named according to the HTTP error code it represents (e.g. `errors/404.md`).
 
-Additional data can be specified for your documents in a [YAML Front Matter](https://yaml.org/). You can access this data in any of your Markdown documents with [mustache](http://mustache.github.io/) templates. You can also use separate files to store data and link these data files to a document in the front matter. Data files can use YAML (default) or JSON format and must be placed in the `data` folder. 
+Additional data can be specified for your documents in a [YAML Front Matter](https://yaml.org/). You can access this data in any of your Markdown documents with [mustache](http://mustache.github.io/) templates. You can also use separate files to store data and link these data files to a document in the front matter. Data files can use YAML (default) or JSON format and must be placed in the `data` folder. Any value annotated with the `!file` type is considered a file name in the `data` folder and is resolved as a data file.
 
 ```yaml
 # data/todo.yaml
 
-todos: 
-  - 
-    title: First todo
+todos:
+  - title: First todo
     text: Complete your first assignment
     completed: true
-  -
-    title: YAML
+  - title: YAML
     text: Learn more about YAML Front Matters
     completed: false
 ```
 
-```md
+```
 <!-- todos.md -->
 
-data: todos
+todos: !file todo
 ---
 {{#todos}}
 - **{{title}}**: {{text}} {{#completed}}[✔️]{{/completed}}

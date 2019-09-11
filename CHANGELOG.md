@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 4.0.0 (2019-09-10)
+## Version 4.0.0 (2019-09-11)
 
 - **Added** automatic title updates based on the first `h1` header
 - **Added** YAML front matters
