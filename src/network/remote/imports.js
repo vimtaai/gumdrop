@@ -12,7 +12,7 @@ const proxy = {
     }
 
     const dependency = dependencies[name];
-    const url = `${dependency.name}@${dependency.version}/${dependency.path}`;
+    const url = `${name}@${dependency.version}/${dependency.path}`;
 
     imports[name] = await cdn.import(url, dependency.export);
     return imports[name];

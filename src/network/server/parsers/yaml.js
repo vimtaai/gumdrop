@@ -15,7 +15,7 @@ export class FileData {
 }
 
 export async function parseYaml(source) {
-  const JSYaml = await imports.jsyaml;
+  const JSYaml = await imports["js-yaml"];
 
   const FileYamlType = new JSYaml.Type("!file", {
     kind: "scalar",

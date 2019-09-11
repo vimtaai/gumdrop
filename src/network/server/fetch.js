@@ -20,7 +20,7 @@ export async function fetchContent(folder, name) {
 
   await fetchFrontMatterData(context);
 
-  const Mustache = await imports.mustache;
+  const Mustache = await imports["mustache"];
   const renderedTemplate = Mustache.render(template, context);
 
   return cache.set(folder, name, await parseMarkdown(renderedTemplate));

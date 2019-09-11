@@ -21,20 +21,23 @@
     "prepare": "npm run build:browser && npm run build:browser:production"
   },
   "dependencies": {
-    "extramark": "^0.2.1",
-    "js-yaml": "^3.13.1",
-    "mustache": "^3.0.3"
+    "extramark": "0.2.1",
+    "js-yaml": "3.13.1",
+    "mustache": "3.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "eslint": "^6.3.0",
-    "eslint-config-prettier": "^6.2.0",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-config-problems": "^3.0.1",
     "eslint-plugin-prettier": "^3.1.0",
     "prettier": "^1.18.2",
     "rollup": "^1.21.2",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-babel-minify": "^9.0.0"
+    "rollup-plugin-babel-minify": "^9.0.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
   }
 }

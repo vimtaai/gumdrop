@@ -1,19 +1,18 @@
+import { dependencies as dependencyVersions } from "../package.json";
+
 export const dependencies = {
-  extramark: {
-    name: "extramark",
-    version: "0.1.0",
+  ["extramark"]: {
+    version: dependencyVersions["extramark"],
     path: "dist/extramark.min.js",
     export: "ExtraMark"
   },
-  jsyaml: {
-    name: "js-yaml",
-    version: "3.12.1",
+  ["js-yaml"]: {
+    version: dependencyVersions["js-yaml"],
     path: "dist/js-yaml.min.js",
     export: "jsyaml"
   },
-  mustache: {
-    name: "mustache",
-    version: "3.0.1",
+  ["mustache"]: {
+    version: dependencyVersions["mustache"],
     path: "mustache.min.js",
     export: "Mustache"
   }

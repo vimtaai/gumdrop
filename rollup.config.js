@@ -1,11 +1,14 @@
 const babel = require("rollup-plugin-babel");
 const minify = require("rollup-plugin-babel-minify");
+const resolve = require("rollup-plugin-node-resolve");
+const commonjs = require("rollup-plugin-commonjs");
+const json = require("rollup-plugin-json");
 
 const { name: outputFileName, module: input } = require("./package.json");
 
 const isProductionBuild = process.env.BUILD === "production";
 const output = {};
-const plugins = [babel()];
+const plugins = [commonjs(), resolve({ preferBuiltins: false }), babel(), json()];
 
 if (process.env.TARGET === "browser") {
   output.format = "iife";
