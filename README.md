@@ -55,7 +55,7 @@ todos:
 todos: !file todo
 ---
 {{#todos}}
-- **{{title}}**: {{text}} {{#completed}}[✔️]{{/completed}}
+- **{{title}}**: {{text}} {{#completed}}[✔]{{/completed}}
 {{/todos}}
 ```
 
@@ -72,10 +72,10 @@ todos: !file todo
 
 ### Syntax highlighting
 
-Fenced code blocks are automatically processed by _highlight.js_. Languages supported are the default languages in the _highlight.js_ bundle. For syntax highlighting you have to include a _highlight.js_ style in your `index.html`.
+Fenced code blocks are automatically processed by [Prism.js](https://prismjs.com/). Languages supported are the default languages in the Prism.js bundle. For syntax highlighting you have to include a Prism.js style in your `index.html`.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.10.0/styles/default.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/themes/prism.css" />
 ```
 
 ### Using with GitHub Pages
