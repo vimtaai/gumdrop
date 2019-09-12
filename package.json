@@ -1,20 +1,43 @@
 {
   "name": "gumdrop",
-  "version": "2.3.0",
-  "description": "Script to display Markdown documents as static HTML pages",
+  "version": "4.0.0",
+  "description": "Zero-configuration script to display Markdown documents as static HTML pages",
   "author": "Márton Visnovitz <vimtaai@inf.elte.hu>",
   "license": "MIT",
-  "main": "build/gumdrop.min.js",
   "repository": "github:vimtaai/gumdrop",
-  "bugs": "https://github.com/vimtaai/gumdrop/issues",
-  "homepage": "https://github.com/vimtaai/gumdrop#readme",
+  "module": "src/index.js",
+  "browser": "dist/gumdrop.min.js",
+  "files": [
+    "/src",
+    "/dist"
+  ],
   "scripts": {
-    "build": "rollup src/index.js -f iife -o build/gumdrop.min.js && terser build/gumdrop.min.js -c -m -o build/gumdrop.min.js",
-    "build:dev": "rollup src/index.js -o build/gumdrop.js -f iife -m",
-    "prepare": "npm run build && npm run build:dev"
+    "lint": "eslint src/**/*.js",
+    "build:browser": "rollup -c --environment TARGET:browser,BUILD:development",
+    "build:browser:production": "rollup -c --environment TARGET:browser,BUILD:production",
+    "watch:browser": "rollup -c -w --environment TARGET:browser,BUILD:development",
+    "prepare": "npm run build:browser && npm run build:browser:production"
+  },
+  "dependencies": {
+    "extramark": "0.3.1",
+    "js-yaml": "3.13.1",
+    "mustache": "3.0.3",
+    "prismjs": "^1.17.1"
   },
   "devDependencies": {
-    "rollup": "^0.67.3",
-    "terser": "^3.10.13"
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-config-problems": "^3.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2",
+    "rollup": "^1.21.2",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-babel-minify": "^9.0.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-includepaths": "^0.2.3",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
   }
 }

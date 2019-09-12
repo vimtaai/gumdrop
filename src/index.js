@@ -1,4 +1,4 @@
-import navigate from './client/navigate'
+import { handleHashChange, handleLoad } from "client/navigation";
 
-window.addEventListener('load', navigate)
-window.addEventListener('hashchange', navigate)
+window.addEventListener("hashchange", handleHashChange);
+window.addEventListener("load", handleLoad);
