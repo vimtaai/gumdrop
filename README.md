@@ -50,12 +50,12 @@ todos:
 ```
 
 ```
-<!-- todos.md -->
-
 todos: !file todo
 ---
 {{#todos}}
-- **{{title}}**: {{text}} {{#completed}}[✔]{{/completed}}
+
+- **{{title}}**: {{text}} {{#completed}}(✔){{/completed}}
+
 {{/todos}}
 ```
 
