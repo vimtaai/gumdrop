@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 4.0.0 (2019-09-11)
+## Version 4.0.0 (2019-09-12)
 
 - **Added** YAML front matters
 - **Added** option for YAML data files
