@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 4.0.1 (2019-09-17)
+
+- **Fixed** bug where front matter separation didn't work with UNIX style LF
+
 ## Version 4.0.0 (2019-09-12)
 
 - **Added** YAML front matters

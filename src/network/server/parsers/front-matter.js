@@ -1,6 +1,6 @@
 import { parseYaml } from "network/server/parsers/yaml";
 
-const frontMatterRegexp = /^---[ \t]*(\r?\n.*\r?\n|\r?\n)---[ \t]*\r\n(.*)$/s;
+const frontMatterRegexp = /^---[ \t]*(\r?\n.*\r?\n|\r?\n)---[ \t]*\r?\n(.*)$/s;
 
 export async function parseFrontMatter(document) {
   const splitDocument = frontMatterRegexp.exec(document);
