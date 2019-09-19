@@ -1,19 +1,21 @@
 import { imports } from "network/remote/imports";
-import { fetchContent } from "network/server/fetch";
 
+import { fetchResource } from "network/server/fetch";
 import { documentRoot, loaderContent } from "client/document";
+import { parseMarkdown } from "../../network/server/parsers/markdown";
 
-export async function updateContent(currentPage) {
+export async function updateContent(currentPage = "index") {
   const timeoutUntilLoader = 500;
 
   const loaderTimer = window.setTimeout(function() {
     documentRoot.innerHTML = loaderContent;
   }, timeoutUntilLoader);
 
-  const file = currentPage || "index";
-  const content = await fetchContent("pages", file, "md");
+  const path = `pages/${currentPage}.md`;
+  const content = await fetchResource(path);
+  const html = await parseMarkdown(content);
 
-  documentRoot.innerHTML = content;
+  documentRoot.innerHTML = html;
 
   const Prism = await imports.prismjs;
   Prism.highlightAll();

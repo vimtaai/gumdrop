@@ -1,20 +1,9 @@
 import { imports } from "network/remote/imports";
 
-export class FileData {
-  constructor(file) {
-    const dot = file.lastIndexOf(".");
+import { fetchResource } from "network/server/fetch";
+import { PathData } from "../path";
 
-    if (dot === -1) {
-      this.file = file;
-      this.extension = "yaml";
-    } else {
-      this.file = file.slice(0, dot);
-      this.extension = file.slice(dot + 1);
-    }
-  }
-}
-
-export async function parseYaml(source) {
+export async function parseYaml(yaml) {
   const JSYaml = await imports["js-yaml"];
 
   const FileYamlType = new JSYaml.Type("!file", {
@@ -23,11 +12,22 @@ export async function parseYaml(source) {
       return data !== null;
     },
     construct(data) {
-      return new FileData(data);
+      return new PathData(data, "yaml");
     }
   });
 
   const YamlWithFilesSchema = JSYaml.Schema.create([FileYamlType]);
 
-  return JSYaml.safeLoad(source, { schema: YamlWithFilesSchema });
+  const yamlData = JSYaml.safeLoad(yaml, { schema: YamlWithFilesSchema });
+
+  for (const field of Object.keys(yamlData)) {
+    if (yamlData[field] instanceof PathData) {
+      const { path } = yamlData[field];
+
+      const resourcePath = `${path[0] === "/" ? path.substr(1) : `data/${path}`}`;
+      yamlData[field] = await fetchResource(resourcePath);
+    }
+  }
+
+  return yamlData;
 }

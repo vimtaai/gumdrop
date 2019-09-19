@@ -1,27 +1,35 @@
-import { imports } from "network/remote/imports";
-import { cache } from "network/server/cache";
+import { cache } from "./cache";
+
+import { BadRequest } from "network/server/errors/bad-request";
+import { NotFound } from "network/server/errors/not-found";
+
+import { PathData } from "network/server/path";
+import { parseYaml } from "network/server/parsers/yaml";
+import { parseJson } from "network/server/parsers/json";
 import { parseMarkdown } from "network/server/parsers/markdown";
-import { parseFrontMatter } from "network/server/parsers/front-matter";
 
-import { fetchResource } from "./fetch/resource";
-import { fetchFrontMatterData } from "./fetch/front-matter";
+const resourceParsers = { yaml: parseYaml, yml: parseYaml, json: parseJson, md: parseMarkdown };
 
-export async function fetchContent(folder, name) {
-  if (cache.contains(folder, name)) {
-    return cache.get(folder, name);
+export async function fetchResource(resourcePath, defaultValue) {
+  if (resourcePath in cache) {
+    return cache[resourcePath];
   }
 
-  const document = await fetchResource(folder, name, "md");
-  const { context, template } = await parseFrontMatter(document);
+  try {
+    const pathData = new PathData(resourcePath, "md");
 
-  if (context === undefined) {
-    return cache.set(folder, name, await parseMarkdown(document));
+    if (pathData.type && !Object.keys(resourceParsers).includes(pathData.type)) {
+      throw new BadRequest(`Invalid resource type "${pathData.type}"`);
+    }
+
+    const response = await window.fetch(pathData.path, { cache: "no-cache" });
+
+    if (response.status === 404) {
+      throw new NotFound();
+    }
+
+    return resourceParsers[pathData.type](await response.text());
+  } catch (error) {
+    return defaultValue || fetchResource(`errors/${error.httpErrorCode}.md`, error.message);
   }
-
-  const contextWithFileData = await fetchFrontMatterData(context);
-
-  const Mustache = await imports.mustache;
-  const renderedTemplate = Mustache.render(template, contextWithFileData);
-
-  return cache.set(folder, name, await parseMarkdown(renderedTemplate));
 }
