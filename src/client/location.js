@@ -5,6 +5,7 @@ export class Location {
     const [, site, hashBangExists, page, hashSignExists, fragment] = url.match(urlRegexp);
 
     this.url = url;
+    this.site = site;
     this.page = page || "index";
     this.fragment = fragment;
     this.isAbsolute = site !== "";
