@@ -4,14 +4,14 @@ import { fetchResource } from "network/server/fetch";
 import { documentRoot, loaderContent } from "client/document";
 import { parseMarkdown } from "../../network/server/parsers/markdown";
 
-export async function updateContent(currentPage = "index") {
+export async function updateContent(currentPage) {
   const timeoutUntilLoader = 500;
 
   const loaderTimer = window.setTimeout(function() {
     documentRoot.innerHTML = loaderContent;
   }, timeoutUntilLoader);
 
-  const path = `pages/${currentPage}.md`;
+  const path = `pages/${currentPage || "index"}.md`;
   const content = await fetchResource(path);
   const html = await parseMarkdown(content);
 
