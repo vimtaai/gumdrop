@@ -3,7 +3,7 @@ import { imports } from "network/remote/imports";
 import { parseYaml } from "./yaml";
 import { parseMustache } from "./mustache";
 
-const frontMatterRegexp = /^---[ \t]*(\r?\n.*\r?\n|\r?\n)---[ \t]*\r?\n(.*)$/s;
+const frontMatterRegexp = /^---[ \t]*(\r?\n.*?\r?\n|\r?\n)---[ \t]*\r?\n(.*)$/s;
 
 export async function parseMarkdown(markdown) {
   const ExtraMark = await imports.extramark;
