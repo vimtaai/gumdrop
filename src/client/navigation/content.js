@@ -11,7 +11,7 @@ export async function updateContent(currentPage) {
     documentRoot.innerHTML = loaderContent;
   }, timeoutUntilLoader);
 
-  const path = `pages/${currentPage || "index"}.md`;
+  const path = `pages/${currentPage}.md`;
   const content = await fetchResource(path);
   const html = await parseMarkdown(content);
 
