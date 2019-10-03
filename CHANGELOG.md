@@ -7,6 +7,7 @@
 - ✨ Data files can be loaded from any folder not just `data`
 - 🛠️ Fixed bug: thematic break in MD caused front matter parsing to fail
 - 🛠️ Fixed bug: not having a `main` tag removed all content from body
+- 🔺 Prism is loaded only if there is a code block on the site
 
 ## [4.0.1] - 2019-09-17
 

@@ -17,8 +17,10 @@ export async function updateContent(currentPage) {
 
   documentRoot.innerHTML = html;
 
-  const Prism = await imports.prismjs;
-  Prism.highlightAll();
+  if (document.querySelector("pre > code")) {
+    const Prism = await imports.prismjs;
+    Prism.highlightAll();
+  }
 
   window.clearTimeout(loaderTimer);
 }
