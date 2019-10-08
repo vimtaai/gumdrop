@@ -18,7 +18,7 @@ export async function parseYaml(yaml) {
 
   const YamlWithFilesSchema = JSYaml.Schema.create([FileYamlType]);
 
-  const yamlData = JSYaml.safeLoad(yaml, { schema: YamlWithFilesSchema });
+  const yamlData = JSYaml.safeLoad(yaml, { schema: YamlWithFilesSchema }) || {};
 
   for (const field of Object.keys(yamlData)) {
     if (yamlData[field] instanceof PathData) {

@@ -2,7 +2,6 @@ import { imports } from "network/remote/imports";
 
 import { fetchResource } from "network/server/fetch";
 import { documentRoot, loaderContent } from "client/document";
-import { parseMarkdown } from "../../network/server/parsers/markdown";
 
 export async function updateContent(currentPage) {
   const timeoutUntilLoader = 500;
@@ -13,9 +12,8 @@ export async function updateContent(currentPage) {
 
   const path = `pages/${currentPage}.md`;
   const content = await fetchResource(path);
-  const html = await parseMarkdown(content);
 
-  documentRoot.innerHTML = html;
+  documentRoot.innerHTML = content;
 
   if (document.querySelector("pre > code")) {
     const Prism = await imports.prismjs;

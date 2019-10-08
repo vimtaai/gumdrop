@@ -7,6 +7,7 @@ import { PathData } from "network/server/path";
 import { parseYaml } from "network/server/parsers/yaml";
 import { parseJson } from "network/server/parsers/json";
 import { parseMarkdown } from "network/server/parsers/markdown";
+import { ServerError } from "./errors/server-error";
 
 const resourceParsers = { yaml: parseYaml, yml: parseYaml, json: parseJson, md: parseMarkdown };
 
@@ -28,7 +29,13 @@ export async function fetchResource(resourcePath, defaultValue) {
       throw new NotFound();
     }
 
-    return resourceParsers[pathData.type](await response.text());
+    const rawData = await response.text();
+
+    try {
+      await resourceParsers[pathData.type](rawData);
+    } catch (error) {
+      throw new ServerError("Invalid content", error);
+    }
   } catch (error) {
     return defaultValue || fetchResource(`errors/${error.httpErrorCode}.md`, error.message);
   }
