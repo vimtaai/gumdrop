@@ -1,19 +1,36 @@
-import { imports } from "network/remote/imports";
+import { imports } from "storage/imports";
 
-import { fetchResource } from "network/server/fetch";
+import { Document } from "utils/resource/document";
+import { ResourcePath } from "utils/resource-path";
 import { documentRoot, loaderContent } from "client/document";
+import { fetchResource } from "network/server/fetch";
 
-export async function updateContent(currentPage) {
-  const timeoutUntilLoader = 500;
+const timeoutUntilLoader = 500;
 
+export async function updateContent(location) {
   const loaderTimer = window.setTimeout(function() {
     documentRoot.innerHTML = loaderContent;
   }, timeoutUntilLoader);
 
-  const path = `pages/${currentPage}.md`;
-  const content = await fetchResource(path);
+  let page;
 
-  documentRoot.innerHTML = content;
+  try {
+    const pagePath = new ResourcePath(location.page, "pages", "md");
+    page = await fetchResource(pagePath);
+  } catch (error) {
+    try {
+      const errorPath = new ResourcePath(error.httpErrorCode, "errors", "md");
+      page = await fetchResource(errorPath);
+    } catch (_) {
+      page = error.message;
+    }
+  }
+
+  if (page instanceof Document) {
+    documentRoot.innerHTML = page;
+  } else if (typeof page === "string") {
+    documentRoot.innerHTML = page;
+  }
 
   if (document.querySelector("pre > code")) {
     const Prism = await imports.prismjs;

@@ -1,4 +1,4 @@
-import { Location } from "client/location";
+import { Location } from "utils/location";
 
 export function updateActiveLinks(currentPage) {
   const linkElements = window.document.querySelectorAll("a[href]");

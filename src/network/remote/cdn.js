@@ -3,6 +3,7 @@ export class CDN {
     this.url = url;
     this.eval = window.eval.bind(window); // eslint-disable-line
   }
+
   async import(module, name = undefined) {
     window.module = {};
     const response = await window.fetch(this.url + module);

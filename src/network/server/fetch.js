@@ -1,42 +1,71 @@
-import { cache } from "./cache";
+import { resources } from "storage/resources";
 
-import { BadRequest } from "network/server/errors/bad-request";
-import { NotFound } from "network/server/errors/not-found";
+import { Data } from "utils/resource/data";
+import { Resource } from "utils/resource";
+import { ResourcePath } from "utils/resource-path";
+import { Document } from "utils/resource/document";
+import { NotFound } from "utils/http-error/not-found";
+import { ServerError } from "utils/http-error/server-error";
+import { BadRequest } from "utils/http-error/bad-request";
 
-import { PathData } from "network/server/path";
-import { parseYaml } from "network/server/parsers/yaml";
-import { parseJson } from "network/server/parsers/json";
-import { parseMarkdown } from "network/server/parsers/markdown";
-import { ServerError } from "./errors/server-error";
+import { ResourceTypes } from "network/server/parser";
+import { HttpError } from "utils/http-error";
 
-const resourceParsers = { yaml: parseYaml, yml: parseYaml, json: parseJson, md: parseMarkdown };
+export async function fetchResource(resourcePath) {
+  if (resourcePath.url in resources) {
+    return resources[resourcePath.url];
+  }
 
-export async function fetchResource(resourcePath, defaultValue) {
-  if (resourcePath in cache) {
-    return cache[resourcePath];
+  if (!Object.keys(ResourceTypes).includes(resourcePath.type)) {
+    throw new BadRequest(`Invalid resource type \`${resourcePath.type}\``);
+  }
+
+  const fetchResponse = await window.fetch(resourcePath.url, { cache: "no-cache" });
+
+  if (fetchResponse.status === 404) {
+    throw new NotFound();
+  } else if (fetchResponse.status === 400) {
+    throw new BadRequest();
+  } else if (fetchResponse.status >= 500) {
+    throw new ServerError();
   }
 
   try {
-    const pathData = new PathData(resourcePath, "md");
+    const rawContent = await fetchResponse.text();
+    const { type, parse } = ResourceTypes[resourcePath.type];
 
-    if (pathData.type && !Object.keys(resourceParsers).includes(pathData.type)) {
-      throw new BadRequest(`Invalid resource type "${pathData.type}"`);
+    let resource;
+    if (type === "data") {
+      resource = new Data(rawContent, parse);
+    } else if (type === "document") {
+      resource = new Document(rawContent, parse);
     }
 
-    const response = await window.fetch(pathData.path, { cache: "no-cache" });
-
-    if (response.status === 404) {
-      throw new NotFound();
-    }
-
-    const rawData = await response.text();
-
-    try {
-      await resourceParsers[pathData.type](rawData);
-    } catch (error) {
-      throw new ServerError("Invalid content", error);
-    }
+    return await resolveResource(resource);
   } catch (error) {
-    return defaultValue || fetchResource(`errors/${error.httpErrorCode}.md`, error.message);
+    if (error instanceof HttpError) {
+      throw error;
+    }
+
+    throw new ServerError("Invalid content", error);
   }
+}
+
+export async function resolveResource(resource) {
+  if (!(resource instanceof Resource)) {
+    return;
+  }
+
+  const data = await resource.getData();
+
+  for (const field in data) {
+    const value = data[field];
+
+    if (value instanceof ResourcePath) {
+      // eslint-disable-next-line
+      data[field] = await fetchResource(value);
+    }
+  }
+
+  return resource.resolve();
 }

@@ -1,9 +1,8 @@
-import { imports } from "network/remote/imports";
+import { imports } from "storage/imports";
 
-import { fetchResource } from "network/server/fetch";
-import { PathData } from "../path";
+import { ResourcePath } from "utils/resource-path";
 
-export async function parseYaml(yaml) {
+export async function parseYaml(rawData) {
   const JSYaml = await imports["js-yaml"];
 
   const FileYamlType = new JSYaml.Type("!file", {
@@ -12,22 +11,11 @@ export async function parseYaml(yaml) {
       return data !== null;
     },
     construct(data) {
-      return new PathData(data, "yaml");
+      return new ResourcePath(data, "data", "yaml");
     }
   });
 
   const YamlWithFilesSchema = JSYaml.Schema.create([FileYamlType]);
 
-  const yamlData = JSYaml.safeLoad(yaml, { schema: YamlWithFilesSchema }) || {};
-
-  for (const field of Object.keys(yamlData)) {
-    if (yamlData[field] instanceof PathData) {
-      const { path } = yamlData[field];
-
-      const resourcePath = `${path[0] === "/" ? path.substr(1) : `data/${path}`}`;
-      yamlData[field] = await fetchResource(resourcePath);
-    }
-  }
-
-  return yamlData;
+  return JSYaml.safeLoad(rawData, { schema: YamlWithFilesSchema }) || {};
 }
