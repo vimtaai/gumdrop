@@ -4,7 +4,7 @@ import { ServerError } from "utils/http-error/server-error";
 import { BadRequest } from "utils/http-error/bad-request";
 import { HttpError } from "utils/http-error";
 
-import { ResourceTypes } from "remote/parsers";
+import { Parsers } from "remote/parsers";
 import { Resource } from "remote/resource";
 import { Data } from "remote/resource/data";
 import { Document } from "remote/resource/document";
@@ -29,7 +29,7 @@ async function resolveResource(resource) {
 }
 
 export async function fetchResource(resourcePath) {
-  if (!Object.keys(ResourceTypes).includes(resourcePath.type)) {
+  if (!Object.keys(Parsers).includes(resourcePath.type)) {
     throw new BadRequest(`Invalid resource type requested`, resourcePath);
   }
 
@@ -45,7 +45,7 @@ export async function fetchResource(resourcePath) {
 
   try {
     const rawContent = await fetchResponse.text();
-    const { type, parse } = ResourceTypes[resourcePath.type];
+    const { type, parse } = Parsers[resourcePath.type];
 
     let resource;
     if (type === "data") {
