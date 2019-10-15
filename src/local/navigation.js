@@ -11,7 +11,6 @@ async function navigateToPage(location) {
   await highlightCodeBlocks();
   updateActiveLinks(location);
   updateTitle();
-  scrollToFragment(location);
 }
 
 export async function handleHashChange(event) {
@@ -21,10 +20,14 @@ export async function handleHashChange(event) {
   if (currentLocation.page !== previousLocation.page) {
     await navigateToPage(currentLocation);
   }
+
+  scrollToFragment(currentLocation);
 }
 
 export async function handleLoad() {
   const currentLocation = new Location(window.location.href);
 
   await navigateToPage(currentLocation);
+
+  scrollToFragment(currentLocation);
 }

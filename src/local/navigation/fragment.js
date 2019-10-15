@@ -1,13 +1,15 @@
 export function scrollToFragment(location) {
+  console.log(location);
   if (!location.fragment) {
     return;
   }
 
   const fragmentElement = document.getElementById(location.fragment);
 
-  if (fragmentElement) {
-    window.scrollTo({ top: 0 });
-  } else {
+  if (fragmentElement !== null) {
+    console.log(fragmentElement);
     fragmentElement.scrollIntoView({ block: "start" });
+  } else {
+    window.scrollTo({ top: 0 });
   }
 }
