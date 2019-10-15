@@ -1,9 +1,10 @@
 import { Imports } from "storage/imports";
 
-import { Resource } from "remote/resource";
 import { Data } from "remote/resource/data";
 import { parseYaml } from "remote/parsers/yaml";
 import { parseJson } from "remote/parsers/json";
+
+import { Resource } from "../resource";
 
 const frontMatterRegexp = /^---[ \t]*(\r?\n.*\r?\n|\r?\n)---[ \t]*\r?\n(.*)$/s;
 
@@ -28,7 +29,7 @@ export class Document extends Resource {
   }
 
   async resolve() {
-    const Mustache = await Imports.mustache;
+    const Mustache = await Imports.get("mustache");
 
     const renderedTemplate = Mustache.render(this.template, await this.getData());
 

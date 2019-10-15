@@ -4,10 +4,10 @@ import { ServerError } from "utils/http-error/server-error";
 import { BadRequest } from "utils/http-error/bad-request";
 import { HttpError } from "utils/http-error";
 
-import { Parsers } from "remote/parsers";
 import { Resource } from "remote/resource";
 import { Data } from "remote/resource/data";
 import { Document } from "remote/resource/document";
+import { Parsers } from "remote/parsers";
 
 async function resolveResource(resource) {
   if (!(resource instanceof Resource)) {
@@ -35,12 +35,14 @@ export async function fetchResource(resourcePath) {
 
   const fetchResponse = await window.fetch(resourcePath.url, { cache: "no-cache" });
 
-  if (fetchResponse.status === 404) {
-    throw new NotFound();
-  } else if (fetchResponse.status === 400) {
-    throw new BadRequest();
-  } else if (fetchResponse.status >= 500) {
-    throw new ServerError();
+  if (!fetchResource.ok) {
+    if (fetchResponse.status === 404) {
+      throw new NotFound();
+    } else if (fetchResponse.status === 400) {
+      throw new BadRequest();
+    } else if (fetchResponse.status >= 500) {
+      throw new ServerError();
+    }
   }
 
   try {

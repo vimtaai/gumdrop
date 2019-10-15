@@ -1,4 +1,4 @@
-import { HttpError } from "utils/http-error";
+import { HttpError } from "../http-error";
 
 export class ServerError extends HttpError {
   constructor(message = "", details = {}) {

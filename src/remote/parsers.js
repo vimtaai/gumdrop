@@ -1,6 +1,6 @@
-import { parseJson } from "remote/parsers/json";
-import { parseYaml } from "remote/parsers/yaml";
-import { parseMarkdown } from "remote/parsers/markdown";
+import { parseJson } from "./parsers/json";
+import { parseYaml } from "./parsers/yaml";
+import { parseMarkdown } from "./parsers/markdown";
 
 export const Parsers = {
   yaml: { type: "data", parse: parseYaml },

@@ -1,50 +1,44 @@
+import { NotFound } from "utils/http-error/not-found";
+import { ServerError } from "utils/http-error/server-error";
+import { BadRequest } from "utils/http-error/bad-request";
+
 import { dependencies } from "dependencies";
+import { parseJS } from "remote/parsers/javascript";
 
-export class CDN {
-  constructor(url) {
-    this.url = url;
-    this.eval = window.eval.bind(window); // eslint-disable-line
-  }
+const cdnRoot = "https://cdn.jsdelivr.net/npm/";
 
-  async import(module, name = undefined) {
-    window.module = {};
-    const response = await window.fetch(this.url + module);
-
-    if (!response.ok) {
-      // eslint-disable-next-line
-      console.error(`Could not load module ${module} from CDN ${this.url} (${response.status})`);
-      return;
+export const Imports = {
+  _imports: {},
+  async get(importName) {
+    if (importName in this._imports) {
+      return this._imports[importName];
     }
 
-    this.eval(`(function (module) {
-      ${await response.text()}
-      ${name !== undefined ? `module.exports = ${name};` : ``}
-    })(window.module)`);
-
-    return window.module.exports;
-  }
-}
-
-const cdn = new CDN("https://cdn.jsdelivr.net/npm/");
-
-const importsProxy = {
-  async get(imports, name) {
-    if (name in imports) {
-      return imports[name];
+    if (!(importName in dependencies)) {
+      throw new Error(`Unknown dependency ${importName}.`);
     }
 
-    if (!(name in dependencies)) {
-      throw new Error(`Unknown dependency ${name}.`);
+    const dependency = dependencies[importName];
+    const url = `${importName}@${dependency.version}/${dependency.path}`;
+
+    const fetchResponse = await window.fetch(cdnRoot + url);
+
+    if (!fetchResponse.ok) {
+      const errorMessage = `Could not load dependency ${importName} from ${cdnRoot}`;
+
+      if (fetchResponse.status === 404) {
+        throw new NotFound(errorMessage);
+      } else if (fetchResponse.status === 400) {
+        throw new BadRequest(errorMessage);
+      } else if (fetchResponse.status >= 500) {
+        throw new ServerError(errorMessage);
+      }
     }
 
-    const dependency = dependencies[name];
-    const url = `${name}@${dependency.version}/${dependency.path}`;
-
+    const sourceCode = await fetchResponse.text();
     // eslint-disable-next-line
-    imports[name] = await cdn.import(url, dependency.export);
+    this._imports[importName] = parseJS(sourceCode, dependency.export);
 
-    return imports[name];
+    return this._imports[importName];
   }
 };
-
-export const Imports = new Proxy({}, importsProxy);

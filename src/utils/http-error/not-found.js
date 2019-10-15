@@ -1,4 +1,4 @@
-import { HttpError } from "utils/http-error";
+import { HttpError } from "../http-error";
 
 export class NotFound extends HttpError {
   constructor(message = "The page you requested does not exist", details = {}) {

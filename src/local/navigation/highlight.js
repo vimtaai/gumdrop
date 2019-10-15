@@ -5,6 +5,7 @@ export async function highlightCodeBlocks() {
     return;
   }
 
-  const Prism = await Imports.prismjs;
+  const Prism = await Imports.get("prismjs");
+
   Prism.highlightAll();
 }
