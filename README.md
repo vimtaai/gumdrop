@@ -65,15 +65,15 @@ todos: !file todo.yaml
 - Zero configuration, no initialization needed
 - No server side code, only needs a static file server
 - No build/generation step, it's just files you serve
-- Extra Markdown features via **[ExtraMark](https://github.com/vimtaai/extramark)**
-- Navigation by **[fetch requests](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)**
+- Extra Markdown features via [ExtraMark](https://github.com/vimtaai/extramark)
+- Navigation by [fetch requests](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 - Local caching of files for faster load times
-- Additional data in front matter and data files handled by **[mustache](http://mustache.github.io/)** templates
+- Additional data in front matter and data files handled by [mustache](http://mustache.github.io/) templates
 - Error pages for various HTTP error codes (404, 500, 300)
 
 ### Syntax highlighting
 
-Fenced code blocks are automatically processed by **[Prism.js](https://prismjs.com/)**. Languages supported are the default languages in the **Prism.js** bundle. For syntax highlighting you have to include a **Prism.js** style in your `index.html`.
+Fenced code blocks are automatically processed by [Prism.js](https://prismjs.com/). Languages supported are the default languages in the Prism.js bundle. For syntax highlighting you have to include a **Prism.js** style in your `index.html`.
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.css" />
