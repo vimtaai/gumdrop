@@ -27,10 +27,10 @@ To create a static website with Markdown all you need to to is to create a HTML 
 
 > Be aware, that you have to serve your files via `http`/`https` protocol, as the `file` protocol does not support fetch requests.
 
-Markdown files in the `pages` folder can be loaded. **Gumdrop** watches the hash fragment of the URL and loads the corresponding Markdown file from the `pages` folder. The parsed Markdown files get rendered in the `<main>` HTML node if present, in `body` otherwise. The default file that gets loaded if no file is specified is `pages/index.md`. To create a link to another file in the `pages` folder simply create a fragment link with its name.
+Markdown files in the `pages` folder can be loaded. **Gumdrop** watches the hash fragment of the URL and loads the corresponding Markdown file from the `pages` folder. The parsed Markdown files get rendered in the `<main>` HTML node if present, in `body` otherwise. The default file that gets loaded if no file is specified is `pages/index.md`. To create a link to another file in the `pages` folder simply create a link with its name prefixed by `#!/`.
 
 ```md
-[Link to about.md](#about)
+[Link to about.md](#!/about)
 ```
 
 Static resources (e.g. images) can be loaded from any folder that is served by your file server, paths are relative to `index.html`. Error pages for various HTTP errors can be placed in the `errors` folder. Each file should be named according to the HTTP error code it represents (e.g. `errors/404.md`).
