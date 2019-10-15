@@ -1,8 +1,33 @@
 import { dependencies } from "dependencies";
 
-import { cdn } from "network/remote/cdn";
+export class CDN {
+  constructor(url) {
+    this.url = url;
+    this.eval = window.eval.bind(window); // eslint-disable-line
+  }
 
-const proxy = {
+  async import(module, name = undefined) {
+    window.module = {};
+    const response = await window.fetch(this.url + module);
+
+    if (!response.ok) {
+      // eslint-disable-next-line
+      console.error(`Could not load module ${module} from CDN ${this.url} (${response.status})`);
+      return;
+    }
+
+    this.eval(`(function (module) {
+      ${await response.text()}
+      ${name !== undefined ? `module.exports = ${name};` : ``}
+    })(window.module)`);
+
+    return window.module.exports;
+  }
+}
+
+const cdn = new CDN("https://cdn.jsdelivr.net/npm/");
+
+const importsProxy = {
   async get(imports, name) {
     if (name in imports) {
       return imports[name];
@@ -22,4 +47,4 @@ const proxy = {
   }
 };
 
-export const imports = new Proxy({}, proxy);
+export const Imports = new Proxy({}, importsProxy);

@@ -1,9 +1,8 @@
-import { imports } from "storage/imports";
-
 import { ResourcePath } from "utils/resource-path";
+import { Imports } from "storage/imports";
 
 export async function parseYaml(rawData) {
-  const JSYaml = await imports["js-yaml"];
+  const JSYaml = await Imports["js-yaml"];
 
   const FileYamlType = new JSYaml.Type("!file", {
     kind: "scalar",

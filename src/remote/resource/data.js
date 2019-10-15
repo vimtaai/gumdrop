@@ -1,4 +1,4 @@
-import { Resource } from "utils/resource";
+import { Resource } from "remote/resource";
 
 export class Data extends Resource {
   constructor(rawData, parse) {

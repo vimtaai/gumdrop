@@ -1,6 +1,6 @@
-import { parseJson } from "network/server/parsers/json";
-import { parseYaml } from "network/server/parsers/yaml";
-import { parseMarkdown } from "network/server/parsers/markdown";
+import { parseJson } from "remote/parsers/json";
+import { parseYaml } from "remote/parsers/yaml";
+import { parseMarkdown } from "remote/parsers/markdown";
 
 export const ResourceTypes = {
   yaml: { type: "data", parse: parseYaml },

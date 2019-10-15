@@ -1,23 +1,36 @@
-import { resources } from "storage/resources";
-
-import { Data } from "utils/resource/data";
-import { Resource } from "utils/resource";
 import { ResourcePath } from "utils/resource-path";
-import { Document } from "utils/resource/document";
 import { NotFound } from "utils/http-error/not-found";
 import { ServerError } from "utils/http-error/server-error";
 import { BadRequest } from "utils/http-error/bad-request";
-
-import { ResourceTypes } from "network/server/parser";
 import { HttpError } from "utils/http-error";
 
-export async function fetchResource(resourcePath) {
-  if (resourcePath.url in resources) {
-    return resources[resourcePath.url];
+import { ResourceTypes } from "remote/parsers";
+import { Resource } from "remote/resource";
+import { Data } from "remote/resource/data";
+import { Document } from "remote/resource/document";
+
+async function resolveResource(resource) {
+  if (!(resource instanceof Resource)) {
+    return;
   }
 
+  const data = await resource.getData();
+
+  for (const field in data) {
+    const value = data[field];
+
+    if (value instanceof ResourcePath) {
+      // eslint-disable-next-line
+      data[field] = await fetchResource(value);
+    }
+  }
+
+  return resource.resolve();
+}
+
+export async function fetchResource(resourcePath) {
   if (!Object.keys(ResourceTypes).includes(resourcePath.type)) {
-    throw new BadRequest(`Invalid resource type \`${resourcePath.type}\``);
+    throw new BadRequest(`Invalid resource type requested`, resourcePath);
   }
 
   const fetchResponse = await window.fetch(resourcePath.url, { cache: "no-cache" });
@@ -51,21 +64,12 @@ export async function fetchResource(resourcePath) {
   }
 }
 
-export async function resolveResource(resource) {
-  if (!(resource instanceof Resource)) {
-    return;
+export async function fetchErrorPage(error) {
+  const errorPath = new ResourcePath(error.httpErrorCode, "errors", "md");
+
+  try {
+    return await fetchResource(errorPath);
+  } catch (_) {
+    return error.message;
   }
-
-  const data = await resource.getData();
-
-  for (const field in data) {
-    const value = data[field];
-
-    if (value instanceof ResourcePath) {
-      // eslint-disable-next-line
-      data[field] = await fetchResource(value);
-    }
-  }
-
-  return resource.resolve();
 }

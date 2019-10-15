@@ -1,10 +1,9 @@
-import { imports } from "storage/imports";
+import { Imports } from "storage/imports";
 
-import { Data } from "utils/resource/data";
-import { Resource } from "utils/resource";
-
-import { parseYaml } from "network/server/parsers/yaml";
-import { parseJson } from "../../network/server/parsers/json";
+import { Resource } from "remote/resource";
+import { Data } from "remote/resource/data";
+import { parseYaml } from "remote/parsers/yaml";
+import { parseJson } from "remote/parsers/json";
 
 const frontMatterRegexp = /^---[ \t]*(\r?\n.*\r?\n|\r?\n)---[ \t]*\r?\n(.*)$/s;
 
@@ -29,7 +28,7 @@ export class Document extends Resource {
   }
 
   async resolve() {
-    const Mustache = await imports.mustache;
+    const Mustache = await Imports.mustache;
 
     const renderedTemplate = Mustache.render(this.template, await this.getData());
 
