@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.1.1] - 2019-10-15
+
+- 🛠️ Fixed bug: Fragment nagivation was not working
+
 ## [4.1.0] - 2019-10-15
 
 - ✨ Markdown files can now be loaded in front matter
