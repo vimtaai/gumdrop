@@ -1,10 +1,8 @@
-export class Location {
-  static get urlRegexp() {
-    return /^([^#]*)(#!)?\/?([^#]*)(#)?(.*)$/;
-  }
+const urlRegexp = /^([^#]*)(#!)?\/?([^#]*)(#)?(.*)$/;
 
+export class Location {
   constructor(url = "") {
-    const [, site, hashBangExists, page, hashSignExists, fragment] = url.match(Location.urlRegexp);
+    const [, site, hashBangExists, page, hashSignExists, fragment] = url.match(urlRegexp);
 
     this.url = url;
     this.site = site;
