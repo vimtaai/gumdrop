@@ -1,10 +1,11 @@
 # Changelog
 
-## [4.1.0] - 2019-10-03
+## [4.1.0] - 2019-10-15
 
 - ✨ Markdown files can now be loaded in front matter
-- ✨ Enable file loading in YAML data files
+- ✨ Enable recursive file loading in YAML data files and front matters
 - ✨ Data files can be loaded from any folder not just `data`
+- ✨ New HTTP errors for invalid content (500) and invalid file types (300)
 - 🛠️ Fixed bug: thematic break in MD caused front matter parsing to fail
 - 🛠️ Fixed bug: not having a `main` tag removed all content from body
 - 🔺 Prism is loaded only if there is a code block on the site
