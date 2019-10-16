@@ -2,7 +2,7 @@
 
 ## [4.1.3] - 2019-10-16
 
-- 🛠️ Fixed bug: Fragment with UTF-8 characters were not working
+- 🛠️ Fixed bug: Fragments with UTF-8 characters were not working
 
 ## [4.1.2] - 2019-10-16
 
