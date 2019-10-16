@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.1.4] - 2019-10-16
+
+- 🛠️ Fixed bug: thematic break in MD caused front matter parsing to fail
+
 ## [4.1.3] - 2019-10-16
 
 - 🛠️ Fixed bug: Fragments with UTF-8 characters were not working

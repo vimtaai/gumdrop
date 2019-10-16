@@ -6,7 +6,7 @@ import { parseJson } from "remote/parsers/json";
 
 import { Resource } from "../resource";
 
-const frontMatterRegexp = /^---[ \t]*(\r?\n.*\r?\n|\r?\n)---[ \t]*\r?\n(.*)$/s;
+const frontMatterRegexp = /^---[ \t]*(\r?\n.*?\r?\n|\r?\n)---[ \t]*\r?\n(.*)$/s;
 
 export class Document extends Resource {
   constructor(rawData, parse) {
