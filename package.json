@@ -1,6 +1,6 @@
 {
   "name": "gumdrop",
-  "version": "4.1.2",
+  "version": "4.1.3",
   "description": "Zero-configuration script to display Markdown documents as static HTML pages",
   "author": "Márton Visnovitz <vimtaai@inf.elte.hu>",
   "license": "MIT",
