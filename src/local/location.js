@@ -13,7 +13,7 @@ export class Location {
 
       this.site = site;
       this.page = page || "index";
-      this.fragment = fragment;
+      this.fragment = window.encodeURI(window.decodeURI(fragment));
       this.isAnchor = !this.isAbsolute && !hashBangExists && hashSignExists;
     }
   }
