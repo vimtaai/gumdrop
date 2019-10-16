@@ -2,13 +2,20 @@ const urlRegexp = /^([^#]*)(#!)?\/?([^#]*)(#)?(.*)$/;
 
 export class Location {
   constructor(url = "") {
-    const [, site, hashBangExists, page, hashSignExists, fragment] = url.match(urlRegexp);
-
     this.url = url;
-    this.site = site;
-    this.page = page || "index";
-    this.fragment = fragment;
-    this.isAnchor = !this.isAbsolute && !hashBangExists && hashSignExists;
+
+    const splitUrl = url.match(urlRegexp);
+
+    if (splitUrl === null) {
+      throw new Error("URL parsing failed");
+    } else {
+      const [, site, hashBangExists, page, hashSignExists, fragment] = splitUrl;
+
+      this.site = site;
+      this.page = page || "index";
+      this.fragment = fragment;
+      this.isAnchor = !this.isAbsolute && !hashBangExists && hashSignExists;
+    }
   }
 
   get isAbsolute() {

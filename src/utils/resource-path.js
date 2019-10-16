@@ -2,10 +2,17 @@ const pathRegexp = /^(\/)?(.+?)?(?:\.([^./]+))?$/;
 
 export class ResourcePath {
   constructor(path, defaultFolder, defaultType) {
-    const [, isAbsolute, file, type] = pathRegexp.exec(path);
+    const splitPath = pathRegexp.exec(path);
 
-    this.file = isAbsolute ? file : `${defaultFolder}/${file}`;
-    this.type = type || defaultType;
+    if (splitPath === null) {
+      this.file = path;
+      this.type = defaultType;
+    } else {
+      const [, isAbsolute, file, type] = splitPath;
+
+      this.file = isAbsolute ? file : `${defaultFolder}/${file}`;
+      this.type = type || defaultType;
+    }
   }
 
   get url() {

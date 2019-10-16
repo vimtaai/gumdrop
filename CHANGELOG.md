@@ -1,8 +1,13 @@
 # Changelog
 
+## [4.1.2] - 2019-10-16
+
+- 🛠️ Fixed bug: Fragment navigation was not working with no fragment
+- 🔺 Handle RegEx errors
+
 ## [4.1.1] - 2019-10-15
 
-- 🛠️ Fixed bug: Fragment nagivation was not working
+- 🛠️ Fixed bug: Fragment navigation was not working
 
 ## [4.1.0] - 2019-10-15
 

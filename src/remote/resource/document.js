@@ -19,8 +19,9 @@ export class Document extends Resource {
       this.template = rawData;
     } else {
       const [, context, template] = splitDocument;
-      this.template = template;
+
       this.context = new Data(context, parseYaml);
+      this.template = template;
     }
   }
 
