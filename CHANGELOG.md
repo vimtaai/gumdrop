@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.1.5] - 2019-10-29
+
+- 🛠️ Fixed bug: files were loaded only if they were at the top level of the data source
+
 ## [4.1.4] - 2019-10-16
 
 - 🛠️ Fixed bug: thematic break in MD caused front matter parsing to fail
