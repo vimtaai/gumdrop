@@ -4,17 +4,14 @@ import { ServerError } from "utils/http-error/server-error";
 import { BadRequest } from "utils/http-error/bad-request";
 import { HttpError } from "utils/http-error";
 
-import { Resource } from "remote/resource";
 import { Data } from "remote/resource/data";
 import { Document } from "remote/resource/document";
 import { Parsers } from "remote/parsers";
 
-async function resolveResource(resource) {
-  if (!(resource instanceof Resource)) {
+async function resolveResourcePaths(data) {
+  if (typeof data !== "object") {
     return;
   }
-
-  const data = await resource.getData();
 
   for (const field in data) {
     const value = data[field];
@@ -22,10 +19,10 @@ async function resolveResource(resource) {
     if (value instanceof ResourcePath) {
       // eslint-disable-next-line
       data[field] = await fetchResource(value);
+    } else {
+      await resolveResourcePaths(value);
     }
   }
-
-  return resource.resolve();
 }
 
 export async function fetchResource(resourcePath) {
@@ -56,7 +53,10 @@ export async function fetchResource(resourcePath) {
       resource = new Document(rawContent, parse);
     }
 
-    return await resolveResource(resource);
+    const data = await resource.getData();
+    await resolveResourcePaths(data);
+
+    return resource.resolve();
   } catch (error) {
     if (error instanceof HttpError) {
       throw error;
