@@ -1,5 +1,10 @@
 # Changelog
 
+## [4.2.0] - 2020-04-25
+
+- ✨ Added: autoloader for Prism
+- 🛠️ Fixed: vulnerable dependencies
+
 ## [4.1.5] - 2019-10-29
 
 - 🛠️ Fixed bug: files were loaded only if they were at the top level of the data source

@@ -9,6 +9,7 @@ const cdnRoot = "https://cdn.jsdelivr.net/npm/";
 
 export const Imports = {
   _imports: {},
+  cdnRoot,
   async get(importName) {
     if (importName in this._imports) {
       return this._imports[importName];
@@ -19,7 +20,7 @@ export const Imports = {
     }
 
     const dependency = dependencies[importName];
-    const url = `${importName}@${dependency.version}/${dependency.path}`;
+    const url = `${dependency.name}@${dependency.version}/${dependency.path}`;
 
     const fetchResponse = await window.fetch(cdnRoot + url);
 
@@ -37,7 +38,11 @@ export const Imports = {
 
     const sourceCode = await fetchResponse.text();
     // eslint-disable-next-line
-    this._imports[importName] = parseJS(sourceCode, dependency.export);
+    this._imports[importName] = await parseJS(sourceCode, dependency.export || undefined);
+
+    if (dependency.callback) {
+      await dependency.callback(dependency, Imports, this._imports[importName]);
+    }
 
     return this._imports[importName];
   }
