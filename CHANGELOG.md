@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.2.1] - 2020-04-25
+
+- 🛠️ Fixed: fatal error in `js-yaml` dependency loading
+
 ## [4.2.0] - 2020-04-25
 
 - ✨ Added: autoloader for Prism
