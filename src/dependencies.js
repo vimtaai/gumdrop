@@ -31,7 +31,7 @@ export const dependencies = {
     export: "null"
   },
   "js-yaml": {
-    name: "prismjs",
+    name: "js-yaml",
     version: dependencyVersions["js-yaml"],
     path: "dist/js-yaml.min.js",
     export: "jsyaml"
