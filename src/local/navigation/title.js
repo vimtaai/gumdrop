@@ -1,4 +1,4 @@
-import { Site } from "storage/site";
+import { Site } from "../../storage/site.js";
 
 export function updateTitle() {
   const firstHeading = document.querySelector("h1");

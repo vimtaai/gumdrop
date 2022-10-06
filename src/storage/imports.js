@@ -1,9 +1,9 @@
-import { NotFound } from "utils/http-error/not-found";
-import { ServerError } from "utils/http-error/server-error";
-import { BadRequest } from "utils/http-error/bad-request";
+import { NotFound } from "../utils/http-error/not-found.js";
+import { ServerError } from "../utils/http-error/server-error.js";
+import { BadRequest } from "../utils/http-error/bad-request.js";
 
-import { dependencies } from "dependencies";
-import { parseJS } from "remote/parsers/javascript";
+import { dependencies } from "../dependencies.js";
+import { parseJS } from "../remote/parsers/javascript";
 
 const cdnRoot = "https://cdn.jsdelivr.net/npm/";
 

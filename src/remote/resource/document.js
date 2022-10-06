@@ -1,8 +1,8 @@
-import { Imports } from "storage/imports";
+import { Imports } from "../../storage/imports.js";
 
-import { Data } from "remote/resource/data";
-import { parseYaml } from "remote/parsers/yaml";
-import { parseJson } from "remote/parsers/json";
+import { Data } from "../resource/data.js";
+import { parseYaml } from "../parsers/yaml.js";
+import { parseJson } from "../parsers/json.js";
 
 import { Resource } from "../resource";
 

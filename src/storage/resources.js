@@ -1,4 +1,4 @@
-import { fetchResource, fetchErrorPage } from "remote/fetch";
+import { fetchResource, fetchErrorPage } from "../remote/fetch.js";
 
 export const Resources = {
   _resources: {},

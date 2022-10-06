@@ -1,6 +1,6 @@
-import { parseJson } from "./parsers/json";
-import { parseYaml } from "./parsers/yaml";
-import { parseMarkdown } from "./parsers/markdown";
+import { parseJson } from "./parsers/json.js";
+import { parseYaml } from "./parsers/yaml.js";
+import { parseMarkdown } from "./parsers/markdown.js";
 
 export const Parsers = {
   yaml: { type: "data", parse: parseYaml },

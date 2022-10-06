@@ -13,8 +13,8 @@
   ],
   "scripts": {
     "lint": "eslint src/**/*.js",
-    "build:browser": "rollup -c --environment TARGET:browser,BUILD:development",
-    "build:browser:production": "rollup -c --environment TARGET:browser,BUILD:production",
+    "build:browser": "esbuild src/index.js --bundle --outfile=dist/gumdrop.js",
+    "build:browser:production": "esbuild src/index.js --bundle --outfile=dist/gumdrop.min.js --minify",
     "watch:browser": "rollup -c -w --environment TARGET:browser,BUILD:development",
     "prepare": "npm run build:browser && npm run build:browser:production"
   },
@@ -25,19 +25,11 @@
     "prismjs": "^1.20.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-config-problems": "^3.1.0",
-    "eslint-plugin-prettier": "^3.4.1",
-    "prettier": "^1.19.1",
-    "rollup": "^1.32.1",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-babel-minify": "^9.1.1",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-includepaths": "^0.2.4",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "esbuild": "^0.15.10",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-problems": "^6.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1"
   }
 }

@@ -1,4 +1,4 @@
-import { Location } from "local/location";
+import { Location } from "../location.js";
 
 export function updateActiveLinks(location) {
   const linkElements = document.querySelectorAll("a[href]");

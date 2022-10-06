@@ -1,6 +1,6 @@
-import { ResourcePath } from "utils/resource-path";
-import { Site } from "storage/site";
-import { Resources } from "storage/resources";
+import { ResourcePath } from "../../utils/resource-path.js";
+import { Site } from "../../storage/site.js";
+import { Resources } from "../../storage/resources.js";
 
 const timeoutUntilLoader = 500;
 
