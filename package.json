@@ -12,11 +12,14 @@
     "/dist"
   ],
   "scripts": {
-    "lint": "eslint src/**/*.js",
-    "build:browser": "esbuild src/index.js --bundle --outfile=dist/gumdrop.js",
-    "build:browser:production": "esbuild src/index.js --bundle --outfile=dist/gumdrop.min.js --minify",
-    "watch:browser": "rollup -c -w --environment TARGET:browser,BUILD:development",
-    "prepare": "npm run build:browser && npm run build:browser:production"
+    "lint:problems": "eslint src/**/*.js",
+    "lint:code-style": "prettier --check src/**/*.js",
+    "lint": "npm run lint:problems && npm run lint:code-style",
+    "build:development": "esbuild src/index.js --bundle --outfile=dist/gumdrop.js",
+    "build:production": "esbuild src/index.js --bundle --outfile=dist/gumdrop.min.js --minify",
+    "build": "npm run build:development && npm run build:production",
+    "watch": "rollup -c -w --environment TARGET:browser,BUILD:development",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "extramark": "0.3.2",
