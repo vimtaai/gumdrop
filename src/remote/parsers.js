@@ -6,5 +6,5 @@ export const Parsers = {
   yaml: { type: "data", parse: parseYaml },
   yml: { type: "data", parse: parseYaml },
   json: { type: "data", parse: parseJson },
-  md: { type: "document", parse: parseMarkdown }
+  md: { type: "document", parse: parseMarkdown },
 };

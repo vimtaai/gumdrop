@@ -45,5 +45,5 @@ export const Imports = {
     }
 
     return this._imports[importName];
-  }
+  },
 };

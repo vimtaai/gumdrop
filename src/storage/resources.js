@@ -18,5 +18,5 @@ export const Resources = {
     }
 
     return this._resources[url];
-  }
+  },
 };
