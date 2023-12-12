@@ -1,4 +1,4 @@
-import { Imports } from "storage/imports";
+import { Imports } from "../../storage/imports.js";
 
 export async function highlightCodeBlocks() {
   if (!document.querySelector("pre > code")) {

@@ -24,5 +24,5 @@ function getDocumentLoader() {
 export const Site = {
   root: getDocumentRoot(),
   title: getDocumentTitle(),
-  loader: getDocumentLoader()
+  loader: getDocumentLoader(),
 };

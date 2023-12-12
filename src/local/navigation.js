@@ -1,4 +1,4 @@
-import { Location } from "local/location";
+import { Location } from "./location.js";
 
 import { loadContent } from "./navigation/content";
 import { highlightCodeBlocks } from "./navigation/highlight";

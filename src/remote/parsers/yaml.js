@@ -1,5 +1,5 @@
-import { ResourcePath } from "utils/resource-path";
-import { Imports } from "storage/imports";
+import { ResourcePath } from "../../utils/resource-path.js";
+import { Imports } from "../../storage/imports.js";
 
 export async function parseYaml(rawData) {
   const JSYaml = await Imports.get("js-yaml");

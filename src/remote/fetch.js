@@ -1,12 +1,12 @@
-import { ResourcePath } from "utils/resource-path";
-import { NotFound } from "utils/http-error/not-found";
-import { ServerError } from "utils/http-error/server-error";
-import { BadRequest } from "utils/http-error/bad-request";
-import { HttpError } from "utils/http-error";
+import { ResourcePath } from "../utils/resource-path.js";
+import { NotFound } from "../utils/http-error/not-found.js";
+import { ServerError } from "../utils/http-error/server-error.js";
+import { BadRequest } from "../utils/http-error/bad-request.js";
+import { HttpError } from "../utils/http-error.js";
 
-import { Data } from "remote/resource/data";
-import { Document } from "remote/resource/document";
-import { Parsers } from "remote/parsers";
+import { Data } from "./resource/data.js";
+import { Document } from "./resource/document.js";
+import { Parsers } from "./parsers.js";
 
 async function resolveResourcePaths(data) {
   if (typeof data !== "object") {

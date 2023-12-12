@@ -1,16 +1,9 @@
 env:
-  node: true,
-  browser: true,
+  node: true
+  browser: true
 
-plugins:
-  - prettier
-
-extends:
-  - problems/node10
-  - plugin:prettier/recommended
+extends: eslint:recommended
 
 parserOptions:
   sourceType: module
-
-rules:
-  strict: off
+  ecmaVersion: 2020
