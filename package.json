@@ -18,7 +18,7 @@
     "build:development": "esbuild src/index.js --bundle --outfile=dist/gumdrop.js",
     "build:production": "esbuild src/index.js --bundle --outfile=dist/gumdrop.min.js --minify",
     "build": "npm run build:development && npm run build:production",
-    "watch": "rollup -c -w --environment TARGET:browser,BUILD:development",
+    "watch": "npm run build:development -- --watch",
     "prepare": "npm run build"
   },
   "dependencies": {
