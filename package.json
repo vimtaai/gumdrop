@@ -11,8 +11,11 @@
     "format": "prettier --check src/**/*.js",
     "test": "node --import='./test/setup.js' --test '**/*.test.js'",
     "test:watch": "node --watch --import='./test/setup.js' --test '**/*.test.js'",
-    "build": "esbuild src/index.js --bundle --outfile=dist/gumdrop.js --minify",
+    "build": "node esbuild.config.js",
     "build:watch": "npm run build -- --watch"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0"
   },
   "devDependencies": {
     "esbuild": "^0.24.2",
