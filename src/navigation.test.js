@@ -69,52 +69,62 @@ describe("Navigation", () => {
 
     it("loads the page content to the `main` tag", async () => {
       mockUrl("http://test.url");
-      mockFetch({ url: "http://test.url/index.md", content: "Test content" });
+      mockFetch({ url: "http://test.url/index.md", content: "<p>Test</p>" });
 
       await navigate();
 
       const mainElement = document.querySelector("main");
-      assert.strictEqual(mainElement.innerHTML, "Test content");
+      assert.strictEqual(mainElement.innerHTML.trim(), "<p>Test</p>");
     });
 
     it("loads the requested page content based on hashbang fragment", async () => {
       mockUrl("http://test.url/#!/page");
-      mockFetch({ url: "http://test.url/page.md", content: "Test content" });
+      mockFetch({ url: "http://test.url/page.md", content: "<p>Test</p>" });
 
       await navigate();
 
       const mainElement = document.querySelector("main");
-      assert.strictEqual(mainElement.innerHTML, "Test content");
+      assert.strictEqual(mainElement.innerHTML.trim(), "<p>Test</p>");
+    });
+
+    it("parses markdown content", async () => {
+      mockUrl("http://test.url/#!/page");
+      mockFetch({ url: "http://test.url/page.md", content: "# Test" });
+
+      await navigate();
+
+      const mainElement = document.querySelector("main");
+      assert.strictEqual(mainElement.innerHTML.trim(), "<h1>Test</h1>");
     });
 
     it("loads the default page content if there is no hashbang fragment", async () => {
       mockUrl("http://test.url/#/page");
-      mockFetch({ url: "http://test.url/index.md", content: "Test content" });
+      mockFetch({ url: "http://test.url/index.md", content: "<p>Test</p>" });
 
       await navigate();
 
       const mainElement = document.querySelector("main");
-      assert.strictEqual(mainElement.innerHTML, "Test content");
+      assert.strictEqual(mainElement.innerHTML.trim(), "<p>Test</p>");
     });
 
     it("loads the default page content if the fragment does not start with a hashbang", async () => {
       mockUrl("http://test.url/#page#!/page");
-      mockFetch({ url: "http://test.url/index.md", content: "Test content" });
+      mockFetch({ url: "http://test.url/index.md", content: "<p>Test</p>" });
 
       await navigate();
 
       const mainElement = document.querySelector("main");
-      assert.strictEqual(mainElement.innerHTML, "Test content");
+      assert.strictEqual(mainElement.innerHTML.trim(), "<p>Test</p>");
     });
 
     it("ignores fragments in page name", async () => {
-      mockFetch({ url: "http://test.url/page.md", content: "Test content" });
+      mockFetch({ url: "http://test.url/page.md", content: "<p>Test</p>" });
       window.location.assign("http://test.url/#!/page#fragment");
 
       await navigate();
 
       const mainElement = document.querySelector("main");
-      assert.strictEqual(mainElement.innerHTML, "Test content");
+      assert.strictEqual(mainElement.innerHTML.trim(), "<p>Test</p>");
     });
   });
 });

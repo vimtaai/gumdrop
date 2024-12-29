@@ -1,4 +1,5 @@
 import { NetworkError, NotFoundError, ServerError } from "./errors.js";
+import { importModule } from "./module.js";
 
 export async function loadPage(location) {
   const { origin } = window.location;
@@ -34,8 +35,10 @@ export async function navigate() {
 
   const [_, content] = await loadPage(page);
 
-  const mainElement = document.querySelector("main");
-  mainElement.innerHTML = content;
+  if (content) {
+    const mainElement = document.querySelector("main");
+    mainElement.innerHTML = await parseContent(content);
+  }
 }
 
 function parseHash(hash) {
@@ -43,4 +46,9 @@ function parseHash(hash) {
   const [page, fragment] = hash.replace(HASH_BANG_REGEX, "").split("#", 1);
 
   return { page, fragment };
+}
+
+async function parseContent(content) {
+  const { parseMarkdown } = await importModule("markdown");
+  return parseMarkdown(content);
 }
