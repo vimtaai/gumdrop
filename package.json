@@ -5,17 +5,19 @@
   "author": "Márton Visnovitz <vimtaai@inf.elte.hu>",
   "license": "MIT",
   "repository": "github:vimtaai/gumdrop",
-  "module": "src/index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint src/**/*.js",
     "format": "prettier --check src/**/*.js",
+    "test": "node --import='./test/setup.js' --test '**/*.test.js'",
+    "test:watch": "node --watch --import='./test/setup.js' --test '**/*.test.js'",
     "build": "esbuild src/index.js --bundle --outfile=dist/gumdrop.js --minify",
-    "watch": "npm run build -- --watch"
+    "build:watch": "npm run build -- --watch"
   },
-  "dependencies": {},
   "devDependencies": {
     "esbuild": "^0.24.2",
     "eslint": "^9.17.0",
+    "happy-dom": "^16.0.1",
     "prettier": "^3.4.2"
   }
 }
