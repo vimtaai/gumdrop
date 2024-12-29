@@ -1,13 +1,14 @@
 import { strict as assert } from "node:assert";
-import { describe, it } from "node:test";
+import { beforeEach, describe, it } from "node:test";
 
-import { mockFetch } from "../test/helpers.js";
+import { mockFetch, mockUrl } from "../test/helpers.js";
 import { NotFoundError, ServerError } from "./errors.js";
-import { loadPage } from "./index.js";
+import { loadPage, navigate } from "./index.js";
 
 describe("Navigation", () => {
   describe("loadPage()", () => {
     it("loads `index` page by default", async () => {
+      mockUrl("http://test.url");
       mockFetch();
 
       await loadPage("");
@@ -17,6 +18,7 @@ describe("Navigation", () => {
     });
 
     it("loads given page if specified", async () => {
+      mockUrl("http://test.url");
       mockFetch();
 
       await loadPage("page");
@@ -26,7 +28,8 @@ describe("Navigation", () => {
     });
 
     it("returns the content of the loaded page", async () => {
-      mockFetch({ status: 200, content: "Test content" });
+      mockUrl("http://test.url");
+      mockFetch({ url: "http://test.url/index.md", content: "Test content" });
 
       const content = await loadPage("");
 
@@ -51,6 +54,63 @@ describe("Navigation", () => {
       };
 
       await assert.rejects(callNavigate, ServerError);
+    });
+  });
+
+  describe("navigate()", () => {
+    beforeEach(() => {
+      const mainElement = document.createElement("main");
+      document.body.append(mainElement);
+    });
+
+    it("loads the page content to the `main` tag", async () => {
+      mockUrl("http://test.url");
+      mockFetch({ url: "http://test.url/index.md", content: "Test content" });
+
+      await navigate();
+
+      const mainElement = document.querySelector("main");
+      assert.strictEqual(mainElement.innerHTML, "Test content");
+    });
+
+    it("loads the requested page content based on hashbang fragment", async () => {
+      mockUrl("http://test.url/#!/page");
+      mockFetch({ url: "http://test.url/page.md", content: "Test content" });
+
+      await navigate();
+
+      const mainElement = document.querySelector("main");
+      assert.strictEqual(mainElement.innerHTML, "Test content");
+    });
+
+    it("loads the default page content if there is no hashbang fragment", async () => {
+      mockUrl("http://test.url/#/page");
+      mockFetch({ url: "http://test.url/index.md", content: "Test content" });
+
+      await navigate();
+
+      const mainElement = document.querySelector("main");
+      assert.strictEqual(mainElement.innerHTML, "Test content");
+    });
+
+    it("loads the default page content if the fragment does not start with a hashbang", async () => {
+      mockUrl("http://test.url/#page#!/page");
+      mockFetch({ url: "http://test.url/index.md", content: "Test content" });
+
+      await navigate();
+
+      const mainElement = document.querySelector("main");
+      assert.strictEqual(mainElement.innerHTML, "Test content");
+    });
+
+    it("ignores fragments in page name", async () => {
+      mockFetch({ url: "http://test.url/page.md", content: "Test content" });
+      window.location.assign("http://test.url/#!/page#fragment");
+
+      await navigate();
+
+      const mainElement = document.querySelector("main");
+      assert.strictEqual(mainElement.innerHTML, "Test content");
     });
   });
 });

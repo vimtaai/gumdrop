@@ -4,7 +4,19 @@ export function mockFetch(options = {}) {
   const status = options.status ?? 200;
   const text = async () => options.content ?? "";
   const ok = status === 200;
+  const url = options.url;
 
-  const response = { ok, status, text };
-  mock.method(global.window, "fetch", () => Promise.resolve(response));
+  const fetchMock = (resource) => {
+    if (!url || url === resource) {
+      return Promise.resolve({ ok, status, text });
+    }
+
+    return Promise.reject({ ok: false, status: 404 });
+  };
+
+  mock.method(window, "fetch", fetchMock);
+}
+
+export function mockUrl(url) {
+  window.location.assign(url);
 }
