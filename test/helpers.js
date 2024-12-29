@@ -5,13 +5,18 @@ export function mockFetch(options = {}) {
   const text = async () => options.content ?? "";
   const ok = status === 200;
   const url = options.url;
+  const fails = options.fails;
 
   const fetchMock = (resource) => {
+    if (fails) {
+      return Promise.reject();
+    }
+
     if (!url || url === resource) {
       return Promise.resolve({ ok, status, text });
     }
 
-    return Promise.reject({ ok: false, status: 404 });
+    return Promise.resolve({ ok: false, status: 404 });
   };
 
   mock.method(window, "fetch", fetchMock);

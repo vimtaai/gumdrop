@@ -2,7 +2,7 @@ import { strict as assert } from "node:assert";
 import { beforeEach, describe, it } from "node:test";
 
 import { mockFetch, mockUrl } from "../test/helpers.js";
-import { NotFoundError, ServerError } from "./errors.js";
+import { NetworkError, NotFoundError, ServerError } from "./errors.js";
 import { loadPage, navigate } from "./navigation.js";
 
 describe("Navigation", () => {
@@ -31,7 +31,7 @@ describe("Navigation", () => {
       mockUrl("http://test.url");
       mockFetch({ url: "http://test.url/index.md", content: "Test content" });
 
-      const content = await loadPage("");
+      const [_, content] = await loadPage("");
 
       assert.strictEqual(content, "Test content");
     });
@@ -39,21 +39,25 @@ describe("Navigation", () => {
     it("throws a not found error if page cannot be found", async () => {
       mockFetch({ status: 404 });
 
-      const callNavigate = async () => {
-        await loadPage("");
-      };
+      const [error, _] = await loadPage("");
 
-      await assert.rejects(callNavigate, NotFoundError);
+      assert.ok(error instanceof NotFoundError);
     });
 
     it("throws a server error if server responds with internal error", async () => {
       mockFetch({ status: 500 });
 
-      const callNavigate = async () => {
-        await loadPage("");
-      };
+      const [error, _] = await loadPage("");
 
-      await assert.rejects(callNavigate, ServerError);
+      assert.ok(error instanceof ServerError);
+    });
+
+    it("throws a network error if server is unreachable", async () => {
+      mockFetch({ fails: true });
+
+      const [error, _] = await loadPage("");
+
+      assert.ok(error instanceof NetworkError);
     });
   });
 
