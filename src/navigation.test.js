@@ -3,7 +3,7 @@ import { beforeEach, describe, it } from "node:test";
 
 import { mockFetch, mockUrl } from "../test/helpers.js";
 import { NotFoundError, ServerError } from "./errors.js";
-import { loadPage, navigate } from "./index.js";
+import { loadPage, navigate } from "./navigation.js";
 
 describe("Navigation", () => {
   describe("loadPage()", () => {
