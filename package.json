@@ -1,0 +1,21 @@
+{
+  "name": "gumdrop",
+  "version": "5.0.0",
+  "description": "Zero-configuration script to display Markdown documents as static HTML pages",
+  "author": "Márton Visnovitz <vimtaai@inf.elte.hu>",
+  "license": "MIT",
+  "repository": "github:vimtaai/gumdrop",
+  "module": "src/index.js",
+  "scripts": {
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --check src/**/*.js",
+    "build": "esbuild src/index.js --bundle --outfile=dist/gumdrop.js --minify",
+    "watch": "npm run build -- --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "esbuild": "^0.24.2",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.2"
+  }
+}
