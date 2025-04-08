@@ -16,6 +16,12 @@ export function mockFetch(options = {}) {
   return mock.method(window, "fetch", fetchMock).mock;
 }
 
-export function mockUrl(url) {
-  window.location.assign(url);
+export function mockLocation(options = {}) {
+  const { url } = options;
+
+  const locationMock = () => {
+    return new URL(url);
+  };
+
+  return mock.getter(window, "location", locationMock).mock;
 }

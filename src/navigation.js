@@ -1,51 +1,17 @@
-import { NetworkError, NotFoundError, ServerError } from "./errors.js";
+import { fetchResource } from "./resource.js";
 import { importModule } from "./module.js";
-
-export async function loadPage(location) {
-  const { origin } = window.location;
-
-  const page = location || "index";
-  const url = `${origin}/${page}.md`;
-  const result = { error: null, content: null };
-
-  try {
-    const response = await window.fetch(url);
-
-    if (response.status === 404) {
-      result.error = new NotFoundError();
-    }
-
-    if (response.status === 500) {
-      result.error = new ServerError();
-    }
-
-    if (response.ok) {
-      result.content = await response.text();
-    }
-  } catch {
-    result.error = new NetworkError();
-  }
-
-  return [result.error, result.content];
-}
+import { parseLocation } from "./location.js";
 
 export async function navigate() {
-  const { hash } = window.location;
-  const { page } = parseHash(hash);
+  const { origin } = window.location;
+  const { page, extension } = parseLocation(window.location);
 
-  const [_, content] = await loadPage(page);
+  const [_, content] = await fetchResource.try(origin, `${page}.${extension}`);
 
   if (content) {
     const mainElement = document.querySelector("main");
     mainElement.innerHTML = await parseContent(content);
   }
-}
-
-function parseHash(hash) {
-  const HASH_BANG_REGEX = /^#!\//;
-  const [page, fragment] = hash.replace(HASH_BANG_REGEX, "").split("#", 1);
-
-  return { page, fragment };
 }
 
 async function parseContent(content) {

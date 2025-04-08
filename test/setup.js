@@ -1,5 +1,5 @@
 import { Window } from "happy-dom";
-import { afterEach, beforeEach, mock } from "node:test";
+import { afterEach, beforeEach } from "node:test";
 
 beforeEach(() => {
   const window = new Window({ url: "http://localhost" });
