@@ -1,5 +1,5 @@
+import { importModule } from "./utilities/module.js";
 import { fetchResource } from "./resource.js";
-import { importModule } from "./module.js";
 import { parseLocation } from "./location.js";
 
 export async function navigate() {
