@@ -30,6 +30,16 @@ describe("navigate()", () => {
     assert.strictEqual(mainElement.innerHTML.trim(), "<p>Test</p>");
   });
 
+  it("handles if the page is not on the root of the domain", async () => {
+    mockLocation({ url: "http://test.url/dir/#!/page" });
+    mockFetch({ url: "http://test.url/dir/page.md", content: "<p>Test</p>" });
+
+    await navigate();
+
+    const mainElement = document.querySelector("main");
+    assert.strictEqual(mainElement.innerHTML.trim(), "<p>Test</p>");
+  });
+
   it("parses markdown content", async () => {
     mockLocation({ url: "http://test.url/#!/page" });
     mockFetch({ url: "http://test.url/page.md", content: "# Test" });

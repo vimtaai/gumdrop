@@ -1,1 +1,1 @@
-export const ROOT_URL = import.meta.dirname;
+export const BASE_URL = new URL(import.meta.url);
