@@ -19,6 +19,9 @@
     "check:ci": "biome ci",
     "check:fix": "biome check --write"
   },
+  "dependencies": {
+    "yaml": "^2.9.1"
+  },
   "devDependencies": {
     "@biomejs/biome": "2.5.13"
   }
