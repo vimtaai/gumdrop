@@ -1,0 +1,25 @@
+{
+  "name": "gumdrop",
+  "version": "5.0.0",
+  "description": "Frontmatter-driven templating, data resolution and Markdown rendering",
+  "author": "Márton Visnovitz <vimtaai@pm.me>",
+  "license": "MIT",
+  "repository": "github:vimtaai/gumdrop",
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "test:watch": "node --watch --test",
+    "check": "biome check",
+    "check:ci": "biome ci",
+    "check:fix": "biome check --write"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.13"
+  }
+}
