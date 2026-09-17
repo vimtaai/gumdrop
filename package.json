@@ -10,7 +10,8 @@
     ".": "./lib/index.js"
   },
   "files": [
-    "lib"
+    "lib/**/*.js",
+    "!lib/**/*.test.js"
   ],
   "scripts": {
     "test": "node --test",
