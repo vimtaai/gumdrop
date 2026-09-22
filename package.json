@@ -14,8 +14,8 @@
     "!lib/**/*.test.js"
   ],
   "scripts": {
-    "test": "node --test",
-    "test:watch": "node --watch --test",
+    "test": "node --test \"lib/**/*.test.js\"",
+    "test:watch": "node --watch --test \"lib/**/*.test.js\"",
     "check": "biome check",
     "check:ci": "biome ci",
     "check:fix": "biome check --write"
