@@ -24,6 +24,7 @@
     "dompurify": "^3.4.15",
     "extramark": "^3.0.1",
     "jsdom": "^30.0.1",
+    "liquidjs": "^10.29.0",
     "yaml": "^2.9.1"
   },
   "devDependencies": {
