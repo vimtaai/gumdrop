@@ -22,7 +22,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "extramark": "0.3.2",
+    "extramark": "3.0.1",
     "js-yaml": "3.13.1",
     "mustache": "3.1.0",
     "prismjs": "^1.20.0"
